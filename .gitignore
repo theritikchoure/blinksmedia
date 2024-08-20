@@ -8,7 +8,7 @@ build/
 *.log
 *.env
 *.test.js
-*.config.js
+# *.config.js
 
 # Backend
 server/node_modules/
