@@ -15,6 +15,8 @@ function LandingPage() {
             className="flex items-center text-blinks-yellow no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
             to={`/`}
           >
+            <img src="/blinks.png" className="w-8 mr-2" />
+
             <svg
               className="w-auto h-5 text-gray-900 fill-current"
               viewBox="0 0 102.067 37.102"
@@ -48,8 +50,8 @@ function LandingPage() {
             Discover the Future of Short-Form Videos
           </h1>
           <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle text-gray-700">
-            Join Blinks to explore and share quick, engaging content with
-            an innovative community.
+            Join Blinks to explore and share quick, engaging content with an
+            innovative community.
           </p>
 
           <Link
@@ -81,3 +83,5 @@ function LandingPage() {
 }
 
 export default LandingPage;
+
+

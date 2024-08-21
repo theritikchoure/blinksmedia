@@ -8,6 +8,7 @@ const NavBar = () => {
     <header className="w-full h-16 bg-white text-gray-700 flex items-center justify-between px-4 fixed top-0 left-0 right-0 z-10">
       <div class="container flex items-start justify-between p-4 mx-auto flex-row">
         <Link to={`/`} class="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
+          <img src="/blinks.png" className="w-8 mr-2"/>
           <svg
             className="w-auto h-5 text-gray-900 fill-current"
             viewBox="0 0 102.067 37.102"
