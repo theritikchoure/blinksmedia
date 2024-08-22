@@ -43,15 +43,15 @@ const NavBar = () => {
           </a>
         </nav> */}
         <div class="items-center h-full">
-          <a href="#_" class="mr-5 font-medium hover:text-gray-900">
+          <Link to={`/login`} class="mr-5 font-medium hover:text-gray-900">
             Login
-          </a>
-          <a
-            href="#_"
+          </Link>
+          <Link
+            to={`/register`}
             class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
           >
             Sign Up
-          </a>
+          </Link>
         </div>
       </div>
     </header>
