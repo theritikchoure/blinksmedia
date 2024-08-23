@@ -38,3 +38,6 @@ The name suggests a moment of inspiration or a flash of creativity, encouraging 
 "Blinks" is concise, easy to remember, and has a catchy quality that makes it stand out. A short name enhances brand recall and makes it easier for users to talk about and recommend our platform to others.
 
 Overall, "Blinks" embodies the core values of our platform—speed, impact, and creativity—making it an ideal name for our short-form video application.
+
+
+BlinkIn: An engaging feature that allows users to follow or subscribe to content creators, ensuring they never miss updates from their favorite channels.

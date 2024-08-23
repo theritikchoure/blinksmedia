@@ -1,24 +1,68 @@
 import React, { Fragment, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import { throttle } from "lodash";
 import ShareModal from "./ShareModal";
 import ShimmerLoader from "./ShimmerLoader";
 
-const ForYouCard = ({ video, index, currentIndex }) => {
+const ForYouCard = ({ video, index, currentIndex, handleVideoChangeIndex }) => {
   const [isSharing, setIsSharing] = useState(false);
 
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [playing, setPlaying] = useState(true);
+  const [muted, setMuted] = useState(false);
+  const [blinksIn, setBlinksIn] = useState(true);
 
-    useEffect(() => {
-      // Simulate a loading delay
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }, []);
+  const toggleMute = () => {
+    setMuted(!muted);
+  };
 
-    const handleOnReady = () => {
-      console.log(`Video at index ${index} is ready to play.`);
-      setLoading(false); // Set loading to false when the video is ready
+  const handlePlaying = () => {
+    setPlaying(!playing);
+  };
+
+  const handleBlinksIn = () => {
+    setBlinksIn(!blinksIn);
+  };
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleText = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  useEffect(() => {
+    // Simulate a loading delay
+    setTimeout(() => {
+      setLoading(false);
+      //   setPlay(true);
+    }, 1000);
+  }, []);
+
+  const [scrollDistance, setScrollDistance] = useState(0);
+
+  useEffect(() => {
+    // Function to handle arrow key presses
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowDown") {
+        handleVideoChangeIndex("down");
+      } else if (event.key === "ArrowUp") {
+        handleVideoChangeIndex("up");
+      }
     };
+
+    // Add event listeners for arrow keys
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup the event listeners on component unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const handleOnReady = () => {
+    console.log(`Video at index ${index} is ready to play.`);
+    setLoading(false); // Set loading to false when the video is ready
+  };
 
   return (
     <Fragment>
@@ -26,55 +70,128 @@ const ForYouCard = ({ video, index, currentIndex }) => {
         class={`${
           index === currentIndex ? "flex" : "hidden"
         } items-center justify-center bg-gray-100`}
+        // class={`flex items-center justify-center bg-gray-100`}
         // ref={containerRef}
       >
         {loading ? (
           <ShimmerLoader />
         ) : (
-          <div class="each m-2 border-gray-800 relative bg-gray-100 w-[19rem]">
-            <div class="relative w-full h-auto">
-              {/* <img
-              class="w-96 h-auto object-cover rounded-md"
-              src="https://images.pexels.com/photos/1535162/pexels-photo-1535162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
-            /> */}
-              <ReactPlayer
-                url={video.url}
-                playing={true}
-                loop={true}
-                controls={false}
-                muted={false} // Add this line
-                width="100%"
-                height="100%"
-                // onReady={handleOnReady} // Handle the onReady event
-              />
-              <div class="badge flex absolute bottom-2 left-2 m-1 text-gray-200 p-1 px-2 text-sm">
-                <svg
-                  class="w-5"
-                  viewBox="0 0 256 256"
-                  xmlns="http://www.w3.org/2000/svg"
+          <div class="each m-2 border-gray-800 relative bg-gray-100 w-[18rem] md:w-[20rem]">
+            <div class="relative w-full h-full">
+              <div className="cursor-pointer">
+                <ReactPlayer
+                  url={video.url}
+                  playing={playing}
+                  loop={true}
+                  // controls={true}
+                  muted={false} // Add this line
+                  width="100%"
+                  height="100%"
+                  // onReady={handleOnReady} // Handle the onReady event
+                />
+              </div>
+              {/* Overlay for sound toggle */}
+              {/* <div className="absolute top-4 right-4 z-50" title="mute/unmute">
+                <button
+                  onClick={toggleMute}
+                  className="bg-gray-700 text-white p-2 rounded-full"
                 >
-                  <path
-                    d="M59 61.922c0-9.768 13.016-15.432 22.352-11.615 10.695 7.017 101.643 58.238 109.869 65.076 8.226 6.838 10.585 17.695-.559 25.77-11.143 8.074-99.712 60.203-109.31 64.73-9.6 4.526-21.952-1.632-22.352-13.088-.4-11.456 0-121.106 0-130.873zm13.437 8.48c0 2.494-.076 112.852-.216 115.122-.23 3.723 3 7.464 7.5 5.245 4.5-2.22 97.522-57.704 101.216-59.141 3.695-1.438 3.45-5.1 0-7.388C177.488 121.952 82.77 67.76 80 65.38c-2.77-2.381-7.563 1.193-7.563 5.023z"
-                    stroke="#fff"
-                    fill="#fff"
-                    fillRule="evenodd"
-                  />
-                </svg>
-                13.8M
+                  {muted ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5v14l11-7L9 5z"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15.59 7.41L14.17 9 16 10.83 14.83 12l1.17 1.17-1.42 1.42L12 12l-4.83 4.83a1.004 1.004 0 01-1.42 0l-1.41-1.41a1.004 1.004 0 010-1.42L9 12 7.41 10.59 6 9l1.17-1.17 1.42-1.42L12 10.83l4.59-4.59z"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div> */}
+              {/* Overlay for play/pause toggle */}
+              <div
+                className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                onClick={handlePlaying}
+              >
+                {!playing && (
+                  <button
+                    className="bg-black text-white p-2 rounded-full opacity-60"
+                    title={playing ? "Pause" : "Play"}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5v14l11-7L9 5z"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              <div class="badge w-4/5 flex flex-col gap-3 absolute bottom-2 left-0 m-1 text-white font-semibold px-2 text-sm">
+                <div id="creator-user">
+                  <div className="flex flex-row gap-2">
+                    <img
+                      alt="blinks"
+                      className="w-6 h-6 rounded-full"
+                      src="https://images.pexels.com/photos/1535162/pexels-photo-1535162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    />
+                    <p>creator_name</p>
+                    <button
+                      className="text-white border-2 bg-transparent border-white px-2 rounded-md"
+                      onClick={handleBlinksIn}
+                    >
+                      {blinksIn ? "BlinksIn" : "Blinked"}
+                      {/* Blinked */}
+                    </button>
+                  </div>
+                </div>
+                <div
+                  onClick={toggleText}
+                  className={`video-description cursor-pointer ${
+                    isExpanded
+                      ? "whitespace-normal"
+                      : "overflow-hidden whitespace-nowrap text-ellipsis"
+                  }`}
+                >
+                  {video.description}
+                </div>
               </div>
             </div>
-            <div class="desc text-black">
-              <span class="description text-sm block py-2 border-gray-400">
-                {video.description}
-              </span>
-            </div>
-            <div class="absolute -right-14 bottom-0 transform -translate-y-1/2 flex flex-col items-center space-y-4">
+            <div class="absolute right-3 sm:-right-14 bottom-0 transform  flex flex-col items-center space-y-4">
               {/* <!-- Like Icon with Number --> */}
               <div class="flex flex-col items-center cursor-pointer">
                 <div class="p-2 bg-gray-300 rounded-full">
                   <svg
-                    class="w-6 h-6 text-black"
+                    class="w-5 h-5 text-black"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
@@ -86,7 +203,7 @@ const ForYouCard = ({ video, index, currentIndex }) => {
                     />
                   </svg>
                 </div>
-                <span class="text-sm text-black mt-1">12.3K</span>
+                <span class="text-sm text-black font-semibold mt-1">12.3K</span>
               </div>
 
               {/* <!-- Share Icon with Number --> */}
@@ -96,7 +213,7 @@ const ForYouCard = ({ video, index, currentIndex }) => {
               >
                 <div class="p-2 bg-gray-300 rounded-full">
                   <svg
-                    className="w-6 h-6"
+                    className="w-5 h-5"
                     viewBox="-0.5 0 25 25"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +235,7 @@ const ForYouCard = ({ video, index, currentIndex }) => {
                     </g>
                   </svg>
                 </div>
-                <span class="text-sm text-black mt-1">5.7K</span>
+                <span class="text-sm text-black font-semibold mt-1">5.7K</span>
               </div>
             </div>
           </div>

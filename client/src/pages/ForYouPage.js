@@ -3,12 +3,13 @@ import Layout from "../layout/main2";
 import ReactPlayer from "react-player";
 import ShareModal from "../components/ShareModal";
 import ForYouCard from "../components/for-you-card";
+import LoginPopup from "../components/LoginPopup";
 
-
-const videoData = [
+const rawVideoData = [
   {
     video_id: "vid_001",
     url: "https://assets.mixkit.co/videos/1173/1173-720.mp4",
+    // url: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
     description: "A scenic view of mountains during sunset.",
   },
   {
@@ -58,15 +59,15 @@ const videoData = [
   },
 ];
 
-
 const ForYouPage = () => {
   const [isSharing, setIsSharing] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [videoData, setVideoData] = useState(rawVideoData);
 
   const containerRef = useRef(null);
 
-    const handleScroll = (e) => {
-      console.log("mouse")
+  const handleScroll = (e) => {
+    console.log("mouse");
     const direction = e.deltaY > 0 ? 1 : -1;
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex + direction;
@@ -74,14 +75,34 @@ const ForYouPage = () => {
     });
   };
 
-  // useEffect(() => {
-  //   const container = containerRef.current;
-  //   container.addEventListener("wheel", handleScroll);
+  const handleVideoChangeIndex = (direction) => {
+    if (direction === "down") {
+      let newCurrentIndex = currentIndex + 1;
 
-  //   return () => {
-  //     container.removeEventListener("wheel", handleScroll);
-  //   };
-  // }, []);
+      if (newCurrentIndex < videoData.length) {
+        setCurrentIndex(newCurrentIndex);
+
+        // Check if newCurrentIndex is the second-to-last index
+        if (newCurrentIndex === videoData.length - 2) {
+          // Append new video data
+          const additionalVideoData = fetchAdditionalVideoData(); // Replace this with your data-fetching logic
+          setVideoData((prevVideoData) => [
+            ...prevVideoData,
+            ...additionalVideoData,
+          ]);
+        }
+      }
+    } else if (direction === "up") {
+      let newCurrentIndex = currentIndex - 1;
+      if (newCurrentIndex >= 0) {
+        setCurrentIndex(currentIndex - 1);
+      }
+    }
+  };
+
+  const fetchAdditionalVideoData = () => {
+    return videoData;
+ }
 
   return (
     <Layout>
@@ -93,11 +114,23 @@ const ForYouPage = () => {
             video={video}
             index={index}
             currentIndex={currentIndex}
+            handleVideoChangeIndex={handleVideoChangeIndex}
           />
         ) : null
       )}
+      {/* {videoData.map((video, index) =>
+        <ForYouCard
+            key={index}
+            video={video}
+            index={index}
+            currentIndex={currentIndex}
+            handleVideoChangeIndex={handleVideoChangeIndex}
+          />
+      )} */}
 
       {isSharing && <ShareModal closeModal={() => setIsSharing(false)} />}
+
+      {/* <LoginPopup /> */}
     </Layout>
   );
 };

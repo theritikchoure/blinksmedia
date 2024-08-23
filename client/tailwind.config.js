@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "blinks-primary": "#14b8a6",
+        "blinks-primary": "#3b82f6",
+        "blinks-secondary": "#ffffff",
         "blinks-blue": "#1B2845",
         "blinks-yellow": "#FFD700",
         "midnight-purple": "#6A0D91",
