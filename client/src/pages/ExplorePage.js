@@ -64,7 +64,7 @@ const ExplorePage = () => {
   return (
     <Layout>
       {/* Explore page */}
-      <div className="holder mx-auto w-10/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="holder mx-auto w-full md:w-10/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {videoData.map((item, index) => (
           <Card key={index} link={item} />
         ))}
