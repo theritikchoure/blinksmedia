@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-// connectDB();
+connectDB();
 
 // Sample route
 app.get("/", (req, res) => {

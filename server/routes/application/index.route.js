@@ -1,4 +1,8 @@
 const express = require("express");
+const comments = require('../../models/comments.model')
+const likes = require('../../models/likes.model')
+const users = require('../../models/users.model')
+const videos = require('../../models/videos.model')
 // const authRoutes = require("./authRoutes");
 // const userRoutes = require("./userRoutes");
 // const videoRoutes = require("./videoRoutes");
