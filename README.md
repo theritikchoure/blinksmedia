@@ -1,11 +1,36 @@
 # BlinksMedia
 
-**BlinksMedia** is a short-form video application that showcases quick, engaging content. This project features a React.js frontend and a Node.js/Express backend.
+[![Vercel Deploy Status](https://img.shields.io/badge/deploy-vercel-000000?style=for-the-badge&logo=vercel)](https://vercel.com/your-vercel-project-link)
+[![Raleway Deploy Status](https://img.shields.io/badge/deploy-raleway-000000?style=for-the-badge&logo=raleway)](https://raleway.com/your-raleway-project-link)
 
-## Project Structure
+**BlinksMedia** is a sophisticated short-form video application designed to showcase quick, engaging content. This project demonstrates my expertise in modern web development technologies, including React.js for the frontend and Node.js/Express for the backend.
 
-- **client/**: Contains the React.js frontend.
-- **server/**: Contains the Node.js/Express backend.
+![Blinks](./docs/home_landing_page.png)
+
+## Project Overview
+
+BlinksMedia is a dynamic platform for sharing and discovering short videos. It combines a sleek user interface with robust backend services to deliver a seamless user experience. The project includes advanced features such as video recommendations, user interactions, and real-time updates.
+
+## Technical Highlights
+
+### Frontend
+
+- **React.js**: Leveraging React’s component-based architecture for a responsive and interactive user interface.
+- **Tailwind CSS**: Utilizing Tailwind for utility-first styling, resulting in a clean and customizable design.
+- **Infinite Scrolling**: Implementing infinite loading with efficient data fetching and rendering strategies.
+
+### Backend
+
+- **Node.js & Express**: Building a scalable and high-performance server to handle user requests and manage data.
+- **MongoDB**: Using MongoDB for a flexible and scalable database solution.
+- **Redis**: Implementing Redis for efficient caching and real-time data processing.
+- **API Development**: Creating RESTful APIs to facilitate seamless communication between frontend and backend.
+
+### Features
+
+- **Video Recommendations**: Smart algorithms to suggest relevant content based on user preferences.
+- **User Interaction**: Enabling features such as following content creators, liking videos, and commenting.
+- **Authentication**: Secure login and registration processes with JWT-based authentication.
 
 ## Getting Started
 
@@ -21,23 +46,32 @@ git clone https://github.com/theritikchoure/blinksmedia.git
 cd blinksmedia
 ```
 
+### Setup and Installation
 
-Why "Blinks"?
-The name "Blinks" was chosen for our short-form video platform to capture the essence of quick, impactful content. Here's why:
+#### Client (React.js)
+```
+cd client
+npm install
+npm start
+```
 
-1. Captures the Essence of Short-Form Content
-The term "Blinks" evokes the idea of something fleeting but memorable, much like the short, engaging videos featured on our platform. Just as a blink is brief yet significant, each video on BlinksMedia is designed to capture attention quickly and leave a lasting impression.
+#### Server (Node.js/Express)
+```
+cd server
+npm install
+npm start
+```
 
-2. Reflects the Fast-Paced Nature
-In the fast-paced digital age, users crave content that is quick to consume and easy to share. "Blinks" symbolizes this rapid consumption of media, aligning perfectly with our platform's focus on delivering quick, high-impact video content.
+### Configuration
+- **Environment Variables:** Configure necessary environment variables for both the frontend and backend.
+- **Database:** Set up MongoDB and Redis instances as per the configuration files.
 
-3. Emphasizes Creativity and Spontaneity
-The name suggests a moment of inspiration or a flash of creativity, encouraging users to create and share spontaneous, authentic content. It reflects the platform's goal of fostering a creative space where users can express themselves freely and connect with others.
+## Contact
 
-4. Short and Memorable
-"Blinks" is concise, easy to remember, and has a catchy quality that makes it stand out. A short name enhances brand recall and makes it easier for users to talk about and recommend our platform to others.
+Feel free to reach out to me for collaboration or job opportunities:
 
-Overall, "Blinks" embodies the core values of our platform—speed, impact, and creativity—making it an ideal name for our short-form video application.
+LinkedIn: [@ritikchourasiya](https://linkedin.com/in/ritikchourasiya)
 
+GitHub: [@theritikchoure](https://github.com/theritikchoure)
 
-BlinkIn: An engaging feature that allows users to follow or subscribe to content creators, ensuring they never miss updates from their favorite channels.
+Email:  [ritvikchoure65@gmail.com](mailto://ritvikchoure65@gmail.com)

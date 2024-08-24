@@ -1,15 +1,17 @@
+// AuthPopupsContext.js
 import React, { createContext, useState } from "react";
 
-// Create a context for the auth popups
 export const AuthPopupsContext = createContext();
 
 const AuthPopupsProvider = ({ children }) => {
-  // State to manage the visibility of popups
-  const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 
-  // Functions to handle opening and closing popups
-  const openLoginPopup = () => setLoginPopupOpen(true);
-  const closeLoginPopup = () => setLoginPopupOpen(false);
+  const openLoginPopup = () => setIsLoginPopupOpen(true);
+  const closeLoginPopup = () => setIsLoginPopupOpen(false);
+
+  const openRegisterPopup = () => setIsRegisterPopupOpen(true);
+  const closeRegisterPopup = () => setIsRegisterPopupOpen(false);
 
   return (
     <AuthPopupsContext.Provider
@@ -17,6 +19,9 @@ const AuthPopupsProvider = ({ children }) => {
         isLoginPopupOpen,
         openLoginPopup,
         closeLoginPopup,
+        isRegisterPopupOpen,
+        openRegisterPopup,
+        closeRegisterPopup,
       }}
     >
       {children}
@@ -24,4 +29,4 @@ const AuthPopupsProvider = ({ children }) => {
   );
 };
 
-export default AuthPopupsProvider;
+export default AuthPopupsProvider

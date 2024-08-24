@@ -7,7 +7,7 @@ import { AuthPopupsContext } from "../context/AuthPopupsContext";
 
 const NavBar = () => {
   
-  const { openLoginPopup } = useContext(AuthPopupsContext);
+  const { openLoginPopup, openRegisterPopup } = useContext(AuthPopupsContext);
 
   const [isOpen, setIsOpen] = useState(false);
   
@@ -49,7 +49,10 @@ const NavBar = () => {
           >
             Login
           </button>
-          <button class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
+          <button
+            onClick={openRegisterPopup}
+            class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-blinks-primary rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
+          >
             Sign Up
           </button>
         </div>

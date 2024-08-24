@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
 import BottomNavigation from "../components/BottomNavigation";
+import ScrollToTopButton from "../components/ScrollToTopButton";
+import VideoUpload from "../components/VideoUpload";
 
 const Layout = ({ children }) => {
   return (
@@ -18,6 +20,7 @@ const Layout = ({ children }) => {
         </main>
       </div>
       <BottomNavigation />
+      <ScrollToTopButton />
     </div>
   );
 };
