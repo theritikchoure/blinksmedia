@@ -49,6 +49,7 @@ cd blinksmedia
 ### Setup and Installation
 
 #### Client (React.js)
+
 ```
 cd client
 npm install
@@ -56,6 +57,7 @@ npm start
 ```
 
 #### Server (Node.js/Express)
+
 ```
 cd server
 npm install
@@ -63,6 +65,7 @@ npm start
 ```
 
 ### Configuration
+
 - **Environment Variables:** Configure necessary environment variables for both the frontend and backend.
 - **Database:** Set up MongoDB and Redis instances as per the configuration files.
 
@@ -74,4 +77,4 @@ LinkedIn: [@ritikchourasiya](https://linkedin.com/in/ritikchourasiya)
 
 GitHub: [@theritikchoure](https://github.com/theritikchoure)
 
-Email:  [ritvikchoure65@gmail.com](mailto://ritvikchoure65@gmail.com)
+Email: [ritvikchoure65@gmail.com](mailto://ritvikchoure65@gmail.com)

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
 
-const Card = ({link}) => {
+const Card = ({video}) => {
   const [playing, setPlaying] = useState(false);
 
   return (
     <div class="each md:mb-10 m-2 border-gray-800 relative">
-      <div
+      <Link to={`/video/${video.video_id}`}
         className="relative hover:cursor-pointer"
         onMouseEnter={() => setPlaying(true)}
         onMouseLeave={() => setPlaying(false)}
@@ -17,7 +18,7 @@ const Card = ({link}) => {
         alt=""
         /> */}
         <ReactPlayer
-          url={link}
+          url={video.url}
           playing={playing}
           loop={true}
           controls={false}
@@ -40,14 +41,17 @@ const Card = ({link}) => {
           </svg>
           13.8M
         </div>
-      </div>
+      </Link>
       {/* <div class="badge absolute top-0 right-0 bg-red-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded">
         Live
       </div> */}
       <div class="desc text-black">
-        <span class="description text-sm block py-2 border-gray-400 mb-2">
-          lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
-        </span>
+        <div
+          // class="description text-sm block py-2 border-gray-400 mb-2"
+          className={`video-description cursor-pointer overflow-hidden whitespace-nowrap text-ellipsis`}
+        >
+          {video.description}
+        </div>
       </div>
     </div>
   );

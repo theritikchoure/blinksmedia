@@ -29,6 +29,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/for-you" element={<ForYouPage />} />
           <Route path="/explore" element={<ExplorePage />} />
+          <Route path="/video/:video_id" element={<ForYouPage />} />
 
           {/* Protected Routes */}
           {/* <Route

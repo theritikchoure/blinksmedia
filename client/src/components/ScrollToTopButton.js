@@ -10,7 +10,7 @@ const ScrollToTopButton = () => {
 
   return (
     <Fragment>
-      <div className="fixed bottom-20 right-4">
+      <div className="hidden md:block fixed bottom-20 right-4">
         <button
           onClick={handleCreateVideo}
           className="p-3 rounded-full bg-blinks-primary text-white shadow-md hover:bg-blinks-blue transition-transform transform hover:scale-110"

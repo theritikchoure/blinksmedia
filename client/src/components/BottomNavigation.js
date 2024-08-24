@@ -33,7 +33,7 @@ const BottomNavigation = () => {
         </div>
         <div class="flex-1 group">
           <Link
-                to={`/explore`}
+            to={`/explore`}
             class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-indigo-500 border-b-2 border-transparent group-hover:border-indigo-500"
           >
             <span class="block px-1 pt-1 pb-2">
@@ -56,6 +56,32 @@ const BottomNavigation = () => {
               <span class="block text-xs pb-1">Explore</span>
             </span>
           </Link>
+        </div>
+        <div class="flex-1 group">
+          <a
+            href="#"
+            class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-blinks-primary border-b-2 border-transparent group-hover:border-blinks-primary"
+          >
+            <span class="block px-1 pt-1 pb-2">
+              <span class="inline-flex justify-center items-center">
+                <svg
+                  className="w-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 12H18M12 6V18"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span class="block text-xs pb-1">Blink</span>
+            </span>
+          </a>
         </div>
         <div class="flex-1 group">
           <a
@@ -83,35 +109,20 @@ const BottomNavigation = () => {
             </span>
           </a>
         </div>
-        <div class="flex-1 group">
-          <a
-            href="#"
-            class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-indigo-500 border-b-2 border-transparent group-hover:border-indigo-500"
-          >
-            <span class="block px-1 pt-1 pb-2">
-              <span class="inline-flex justify-center items-center">
-                <svg
-                  class="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="block text-xs pb-1">Profile</span>
-            </span>
-          </a>
-        </div>
       </div>
     </div>
   );
 };
 
 export default BottomNavigation;
+
+
+
+
+
+
+
+// Cache if possible
+
+// nginx ulimit increase
+
