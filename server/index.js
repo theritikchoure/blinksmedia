@@ -13,6 +13,8 @@ const app = express();
 app.use(helmet());
 app.use(morgan("dev"));
 // Configure CORS to allow only your frontend
+
+console.log("Frontend URL: ", process.env.FRONTEND_URL)
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
