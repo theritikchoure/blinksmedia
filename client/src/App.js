@@ -13,6 +13,7 @@ import LoginPage from "./pages/LoginPage.js";
 import RegisterPage from "./pages/RegistrationPage.js";
 import ForYouPage from "./pages/ForYouPage.js";
 import ExplorePage from "./pages/ExplorePage.js";
+import AuthPopups from "./components/auth-popups/AuthPopups.js";
 
 // Dummy authentication status
 const isAuthenticated = false;
@@ -39,6 +40,7 @@ function App() {
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </div>
+      <AuthPopups />
     </Router>
   );
 }

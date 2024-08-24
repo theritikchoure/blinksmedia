@@ -1,14 +1,71 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-const LoginPopup = () => {
+const LoginPopup = ({ onClose }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handlePopupClose = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Perform form validation or API call here
+    if (!email || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    // Example: API call for login
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    alert(`email: ${email} || password: ${password}`);
+
+    // Reset form fields after submission
+    setEmail("");
+    setPassword("");
+
+    // Close the popup (if desired)
+    handlePopupClose();
+  };
+
+  useEffect(() => {
+    const handleEscKeyPress = (e) => {
+      if (e.key === "Escape") {
+        handlePopupClose();
+      }
+    };
+
+    // Attach the event listener
+    document.addEventListener("keydown", handleEscKeyPress);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("keydown", handleEscKeyPress);
+    };
+  }, []);
+
   return (
-    //   <!-- component -->
-    <div class="fixed z-50 left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 py-10">
-      <div class="relative max-h-full w-full p-4 max-w-xl overflow-y-auto sm:rounded-2xl bg-white">
-        <div className="absolute right-8 cursor-pointer">
+    <div className="fixed z-50 left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 py-10">
+      <div className="relative max-h-full w-full p-4 max-w-xl overflow-y-auto sm:rounded-2xl bg-white">
+        <div
+          className="absolute right-8 cursor-pointer"
+          onClick={handlePopupClose}
+        >
           <svg
-           className="w-7"
+            className="w-7"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -18,9 +75,9 @@ const LoginPopup = () => {
                 id="Vector"
                 d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18"
                 stroke="#000000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
           </svg>
@@ -34,7 +91,7 @@ const LoginPopup = () => {
             Or{" "}
             <a
               href="/register"
-              className="font-medium text-blinks-yellow hover:text-blinks-blue"
+              className="font-medium text-blinks-primary hover:text-blinks-blue"
             >
               create an account
             </a>
@@ -43,7 +100,7 @@ const LoginPopup = () => {
 
         <div className="mt-2 sm:mx-auto sm:w-full">
           <div className="py-8 px-4 sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -56,8 +113,10 @@ const LoginPopup = () => {
                     id="email"
                     name="email"
                     type="email"
-                    autoComplete="email"
+                    autoComplete="off"
                     required
+                    value={email}
+                    onChange={handleEmailChange}
                     className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-charcoal-gray focus:outline-none focus:ring-blinks-blue focus:border-blinks-blue focus:z-10 sm:text-sm"
                     placeholder="Enter your email address"
                   />
@@ -78,6 +137,8 @@ const LoginPopup = () => {
                     type="password"
                     autoComplete="current-password"
                     required
+                    value={password}
+                    onChange={handlePasswordChange}
                     className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-charcoal-gray focus:outline-none focus:ring-blinks-blue focus:border-blinks-blue focus:z-10 sm:text-sm"
                     placeholder="Enter your password"
                   />
@@ -103,7 +164,7 @@ const LoginPopup = () => {
                 <div className="text-sm">
                   <a
                     href="#"
-                    className="font-medium text-blinks-blue hover:text-blinks-yellow"
+                    className="font-medium text-blinks-primary hover:text-blinks-blue"
                   >
                     Forgot your password?
                   </a>
@@ -113,7 +174,7 @@ const LoginPopup = () => {
               <div>
                 <button
                   type="submit"
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-black hover:text-white bg-blinks-yellow hover:bg-blinks-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blinks-blue"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-blinks-secondary hover:text-white bg-blinks-primary hover:bg-blinks-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blinks-blue"
                 >
                   Sign in
                 </button>

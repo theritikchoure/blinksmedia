@@ -3,7 +3,7 @@ import Layout from "../layout/main2";
 import ReactPlayer from "react-player";
 import ShareModal from "../components/ShareModal";
 import ForYouCard from "../components/for-you-card";
-import LoginPopup from "../components/LoginPopup";
+import LoginPopup from "../components/auth-popups/LoginPopup";
 
 const rawVideoData = [
   {

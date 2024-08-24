@@ -5,7 +5,7 @@ const Card = ({link}) => {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div class="each mb-10 m-2 border-gray-800 relative">
+    <div class="each md:mb-10 m-2 border-gray-800 relative">
       <div
         className="relative hover:cursor-pointer"
         onMouseEnter={() => setPlaying(true)}

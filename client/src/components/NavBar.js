@@ -1,11 +1,16 @@
 // src/components/NavBar.js
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import BlinksSVGLogo from "./BlinksSVGLogo";
+import { AuthPopupsContext } from "../context/AuthPopupsContext";
 
 const NavBar = () => {
+  
+  const { openLoginPopup } = useContext(AuthPopupsContext);
+
   const [isOpen, setIsOpen] = useState(false);
+  
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -38,15 +43,15 @@ const NavBar = () => {
           </Link>
         </nav>
         <div class="hidden md:block items-center h-full">
-          <Link to={`/login`} class="mr-5 font-medium hover:text-gray-900">
-            Login
-          </Link>
-          <Link
-            to={`/register`}
-            class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
+          <button
+            onClick={openLoginPopup}
+            class="mr-5 font-medium hover:text-gray-900"
           >
+            Login
+          </button>
+          <button class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
             Sign Up
-          </Link>
+          </button>
         </div>
       </div>
     </header>
