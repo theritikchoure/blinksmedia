@@ -55,7 +55,7 @@ const ForYouCard = ({ video, index, currentIndex, handleVideoChangeIndex }) => {
       <div
         className={`${
           index === currentIndex ? "flex" : "hidden"
-        } flex-col items-center justify-center p-4 md:p-6 h-[calc(100vh-170px)]  md:h-[calc(100vh-100px)] w-full relative`}
+        } flex-col items-center justify-center md:p-6 h-[calc(100vh-170px)]  md:h-[calc(100vh-100px)] w-full relative`}
       >
         {loading ? (
           <ShimmerLoader />
@@ -126,9 +126,9 @@ const ForYouCard = ({ video, index, currentIndex, handleVideoChangeIndex }) => {
                 {video.description}
               </div>
             </div>
-            <div className="absolute right-2 bottom-2 flex flex-col space-y-2">
+            <div className="absolute right-2 bottom-20 flex flex-col space-y-2">
               <div className="flex flex-col items-center cursor-pointer">
-                <div className="p-2 bg-gray-300 rounded-full">
+                <div className="p-2 bg-white rounded-full">
                   <svg
                     className="w-4 h-4 text-black"
                     xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@ const ForYouCard = ({ video, index, currentIndex, handleVideoChangeIndex }) => {
                     />
                   </svg>
                 </div>
-                <span className="text-xs text-black font-semibold mt-1">
+                <span className="text-xs text-white font-semibold mt-1">
                   12.3K
                 </span>
               </div>
@@ -150,7 +150,7 @@ const ForYouCard = ({ video, index, currentIndex, handleVideoChangeIndex }) => {
                 className="flex flex-col items-center cursor-pointer"
                 onClick={() => setIsSharing(true)}
               >
-                <div className="p-2 bg-gray-300 rounded-full">
+                <div className="p-2 bg-white rounded-full">
                   <svg
                     className="w-4 h-4"
                     viewBox="-0.5 0 25 25"
@@ -166,7 +166,7 @@ const ForYouCard = ({ video, index, currentIndex, handleVideoChangeIndex }) => {
                     />
                   </svg>
                 </div>
-                <span className="text-xs text-black font-semibold mt-1">
+                <span className="text-xs text-white font-semibold mt-1">
                   5.7K
                 </span>
               </div>
@@ -178,7 +178,7 @@ const ForYouCard = ({ video, index, currentIndex, handleVideoChangeIndex }) => {
         <ShareModal
           closeModal={() => setIsSharing(false)}
           description={video.description}
-          url={`${window.location}/${video?.video_id}`}
+          url={`${window.location}/video/${video?.video_id}`}
         />
       )}
     </Fragment>

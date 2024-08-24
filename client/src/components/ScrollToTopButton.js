@@ -2,15 +2,15 @@ import React, { useState, useEffect, Fragment } from "react";
 import VideoUpload from "./VideoUpload";
 
 const ScrollToTopButton = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    
-    const handleCreateVideo = () => {
-        setIsVisible(!isVisible);
-    }
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleCreateVideo = () => {
+    setIsVisible(!isVisible);
+  };
 
   return (
     <Fragment>
-      <div className="hidden md:block fixed bottom-20 right-4">
+      <div className="hidden md:block fixed bottom-4 right-4">
         <button
           onClick={handleCreateVideo}
           className="p-3 rounded-full bg-blinks-primary text-white shadow-md hover:bg-blinks-blue transition-transform transform hover:scale-110"
@@ -33,7 +33,7 @@ const ScrollToTopButton = () => {
         </button>
       </div>
 
-          {isVisible && <VideoUpload onClose={handleCreateVideo} />}
+      {isVisible && <VideoUpload onClose={handleCreateVideo} />}
     </Fragment>
   );
 };

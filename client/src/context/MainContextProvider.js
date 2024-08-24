@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import AuthPopupsProvider from "./AuthPopupsContext";
+import { AuthenticationProvider } from "./AuthenticationContext";
 
 // Create a context
 export const MainContext = createContext();
@@ -9,10 +10,12 @@ const MainContextProvider = ({ children }) => {
 
   return (
     <MainContext.Provider value={{}}>
-      <AuthPopupsProvider>
-        {/* Wrap other providers here if needed */}
-        {children}
-      </AuthPopupsProvider>
+      <AuthenticationProvider>
+        <AuthPopupsProvider>
+          {/* Wrap other providers here if needed */}
+          {children}
+        </AuthPopupsProvider>
+      </AuthenticationProvider>
     </MainContext.Provider>
   );
 };

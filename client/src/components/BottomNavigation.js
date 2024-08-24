@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthenticationContext";
 
 const BottomNavigation = () => {
+  const { isUserLoggedIn } = useContext(AuthContext);
   return (
     <div class="md:hidden fixed bottom-0 w-full px-7 bg-white shadow-lg rounded-2xl">
       <div class="flex">
@@ -57,15 +59,15 @@ const BottomNavigation = () => {
             </span>
           </Link>
         </div>
-        <div class="flex-1 group">
-          <a
+        {isUserLoggedIn && (<div class="flex-1 group">
+          <button
             href="#"
             class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-blinks-primary border-b-2 border-transparent group-hover:border-blinks-primary"
           >
             <span class="block px-1 pt-1 pb-2">
               <span class="inline-flex justify-center items-center">
                 <svg
-                  className="w-6"
+                  className="w-5"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -81,8 +83,8 @@ const BottomNavigation = () => {
               </span>
               <span class="block text-xs pb-1">Blink</span>
             </span>
-          </a>
-        </div>
+          </button>
+        </div>)}
         <div class="flex-1 group">
           <a
             href="#"

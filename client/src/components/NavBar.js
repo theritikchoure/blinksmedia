@@ -4,10 +4,12 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import BlinksSVGLogo from "./BlinksSVGLogo";
 import { AuthPopupsContext } from "../context/AuthPopupsContext";
+import { AuthContext } from "../context/AuthenticationContext";
 
 const NavBar = () => {
   
   const { openLoginPopup, openRegisterPopup } = useContext(AuthPopupsContext);
+  const { isUserLoggedIn, logout } = useContext(AuthContext);
 
   const [isOpen, setIsOpen] = useState(false);
   
@@ -42,7 +44,7 @@ const NavBar = () => {
             Profile
           </Link>
         </nav>
-        <div class="hidden md:block items-center h-full">
+        {!isUserLoggedIn && (<div class="items-center h-full">
           <button
             onClick={openLoginPopup}
             class="mr-5 font-medium hover:text-gray-900"
@@ -55,7 +57,15 @@ const NavBar = () => {
           >
             Sign Up
           </button>
-        </div>
+        </div>)}
+        {isUserLoggedIn && (<div class="items-center h-full">
+          <button
+            onClick={logout}
+            class="mr-5 font-medium hover:text-gray-900"
+          >
+            Logout
+          </button>
+        </div>)}
       </div>
     </header>
   );

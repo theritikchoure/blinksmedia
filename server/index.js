@@ -12,7 +12,12 @@ const app = express();
 // Middleware
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(cors());
+// Configure CORS to allow only your frontend
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Allow credentials like cookies
+}));
 app.use(express.json());
 
 // Connect to MongoDB

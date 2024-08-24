@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import authenticationService from "../../services/authenticationService";
+import { AuthContext } from "../../context/AuthenticationContext";
 
 const LoginPopup = ({ onClose }) => {
+
+   const { login } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [remember_me, setRememberMe] = useState(false);
 
   const handlePopupClose = () => {
     if (onClose) {
@@ -18,27 +24,37 @@ const LoginPopup = ({ onClose }) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+  };
 
-    // Perform form validation or API call here
-    if (!email || !password) {
-      alert("Please fill in all fields.");
-      return;
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      // Perform form validation or API call here
+      if (!email || !password) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      let res = await authenticationService.login(
+        { email, password },
+        remember_me
+      );
+
+      login(res.user, res.token);
+
+      // Reset form fields after submission
+      setEmail("");
+      setPassword("");
+      setRememberMe(false);
+
+      // Close the popup (if desired)
+      handlePopupClose();
+    } catch (error) {
+      console.error(error)
     }
-
-    // Example: API call for login
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    alert(`email: ${email} || password: ${password}`);
-
-    // Reset form fields after submission
-    setEmail("");
-    setPassword("");
-
-    // Close the popup (if desired)
-    handlePopupClose();
   };
 
   useEffect(() => {
@@ -151,6 +167,7 @@ const LoginPopup = ({ onClose }) => {
                     id="remember_me"
                     name="remember_me"
                     type="checkbox"
+                    onChange={handleRememberMe}
                     className="h-4 w-4 text-blinks-blue focus:ring-blinks-blue border-gray-300 rounded"
                   />
                   <label

@@ -61,6 +61,7 @@ const ShareModal = ({ closeModal, description, url }) => {
           <p class="text-sm">Share this link via</p>
           <div class="flex justify-around my-4">
             <Link
+              target="_blank"
               to={shareLinks?.facebook}
               class="border hover:bg-[#1877f2] w-12 h-12 fill-[#1877f2] hover:fill-white border-blue-200 rounded-full flex items-center justify-center shadow-xl hover:shadow-blue-500/50 cursor-pointer"
             >
@@ -74,6 +75,7 @@ const ShareModal = ({ closeModal, description, url }) => {
               </svg>
             </Link>
             <Link
+              target="_blank"
               to={shareLinks?.twitter}
               class="border hover:bg-[#1d9bf0] w-12 h-12 fill-[#1d9bf0] hover:fill-white border-blue-200 rounded-full flex items-center justify-center shadow-xl hover:shadow-sky-500/50 cursor-pointer"
             >
@@ -87,6 +89,7 @@ const ShareModal = ({ closeModal, description, url }) => {
               </svg>
             </Link>
             <Link
+              target="_blank"
               to={shareLinks?.whatsapp}
               class="border hover:bg-[#25D366] w-12 h-12 fill-[#25D366] hover:fill-white border-green-200 rounded-full flex items-center justify-center shadow-xl hover:shadow-green-500/50 cursor-pointer"
             >
@@ -105,6 +108,7 @@ const ShareModal = ({ closeModal, description, url }) => {
             </Link>
 
             <Link
+              target="_blank"
               to={shareLinks?.telegram}
               class="border hover:bg-[#229ED9] w-12 h-12 fill-[#229ED9] hover:fill-white border-sky-200 rounded-full flex items-center justify-center shadow-xl hover:shadow-sky-500/50 cursor-pointer"
             >
