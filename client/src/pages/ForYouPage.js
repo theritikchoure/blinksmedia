@@ -4,6 +4,7 @@ import ReactPlayer from "react-player";
 import ShareModal from "../components/ShareModal";
 import ForYouCard from "../components/for-you-card";
 import LoginPopup from "../components/auth-popups/LoginPopup";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const rawVideoData = [
   {
@@ -102,7 +103,26 @@ const ForYouPage = () => {
 
   const fetchAdditionalVideoData = () => {
     return videoData;
- }
+  }
+  
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate data fetching or authentication check
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); // Adjust the timeout as necessary
+
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <Layout>
@@ -118,15 +138,6 @@ const ForYouPage = () => {
           />
         ) : null
       )}
-      {/* {videoData.map((video, index) =>
-        <ForYouCard
-            key={index}
-            video={video}
-            index={index}
-            currentIndex={currentIndex}
-            handleVideoChangeIndex={handleVideoChangeIndex}
-          />
-      )} */}
 
       {isSharing && <ShareModal closeModal={() => setIsSharing(false)} />}
 

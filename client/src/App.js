@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -14,11 +14,16 @@ import RegisterPage from "./pages/RegistrationPage.js";
 import ForYouPage from "./pages/ForYouPage.js";
 import ExplorePage from "./pages/ExplorePage.js";
 import AuthPopups from "./components/auth-popups/AuthPopups.js";
+import ProfilePage from "./pages/ProfilePage.js";
+import FollowingPage from "./pages/FollowingPage.js";
+import { AuthContext } from "./context/AuthenticationContext.js";
+import NotFoundPage from "./pages/NotFoundPage.js";
 
-// Dummy authentication status
-const isAuthenticated = false;
 
 function App() {
+
+    const { isUserLoggedIn } = useContext(AuthContext);
+
   return (
     <Router>
       <div className="app">
@@ -30,15 +35,21 @@ function App() {
           <Route path="/for-you" element={<ForYouPage />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/video/:video_id" element={<ForYouPage />} />
+          {/* <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/following" element={<FollowingPage />} /> */}
 
           {/* Protected Routes */}
-          {/* <Route
-            path="/dashboard"
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
-          /> */}
+          <Route
+            path="/profile"
+            element={isUserLoggedIn ? <ProfilePage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/following"
+            element={isUserLoggedIn ? <FollowingPage /> : <Navigate to="/" />}
+          />
 
           {/* Catch-all Route for 404 */}
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
       <AuthPopups />

@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import authenticationService from "../../services/authenticationService";
+import { AuthContext } from "../../context/AuthenticationContext";
 
 const RegisterPopup = ({ onClose }) => {
+  const { login } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [initialValue, setInitialValue] = useState({});
 
   const handlePopupClose = () => {
     if (onClose) {
@@ -11,35 +17,55 @@ const RegisterPopup = ({ onClose }) => {
     }
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleFormChange = (key, value) => {
+    setInitialValue({
+      ...initialValue,
+      [key]: value,
+    });
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+      console.log(initialValue);
 
-    // Perform form validation or API call here
-    if (!email || !password) {
-      alert("Please fill in all fields.");
-      return;
+      // Perform form validation or API call here
+      if (
+        !initialValue.name ||
+        !initialValue.email ||
+        !initialValue.password ||
+        !initialValue.confirm_password ||
+        !initialValue.username
+      ) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (initialValue.password !== initialValue.confirm_password) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      let res = await authenticationService.register({
+        name: initialValue.name,
+        email: initialValue.email,
+        username: initialValue.username,
+        password: initialValue.password,
+        // confirm_password: initialValue.confirm_password,
+      });
+
+      login(res.user, res.token);
+
+      alert("Registration successful");
+
+      setInitialValue({});
+
+      // Close the popup (if desired)
+      handlePopupClose();
+    } catch (error) {
+      console.log(error);
     }
-
-    // Example: API call for login
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-    alert(`email: ${email} || password: ${password}`);
-
-    // Reset form fields after submission
-    setEmail("");
-    setPassword("");
-
-    // Close the popup (if desired)
-    handlePopupClose();
   };
 
   useEffect(() => {
@@ -118,6 +144,7 @@ const RegisterPopup = ({ onClose }) => {
                     required
                     className="appearance-none rounded-md relative block w-full px-3 py-2 border border-charcoal-gray placeholder-charcoal-gray text-charcoal-gray focus:outline-none focus:ring-blinks-blue focus:border-blinks-blue focus:z-10 sm:text-sm"
                     placeholder="Enter your full name"
+                    onChange={(e) => handleFormChange("name", e.target.value)}
                   />
                 </div>
               </div>
@@ -138,6 +165,29 @@ const RegisterPopup = ({ onClose }) => {
                     required
                     className="appearance-none rounded-md relative block w-full px-3 py-2 border border-charcoal-gray placeholder-charcoal-gray text-charcoal-gray focus:outline-none focus:ring-blinks-blue focus:border-blinks-blue focus:z-10 sm:text-sm"
                     placeholder="Enter your email address"
+                    onChange={(e) => handleFormChange("email", e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-charcoal-gray"
+                >
+                  Username
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="username"
+                    name="username"
+                    type="username"
+                    autoComplete="username"
+                    required
+                    className="appearance-none rounded-md relative block w-full px-3 py-2 border border-charcoal-gray placeholder-charcoal-gray text-charcoal-gray focus:outline-none focus:ring-blinks-blue focus:border-blinks-blue focus:z-10 sm:text-sm"
+                    placeholder="Enter your username"
+                    onChange={(e) =>
+                      handleFormChange("username", e.target.value)
+                    }
                   />
                 </div>
               </div>
@@ -158,6 +208,9 @@ const RegisterPopup = ({ onClose }) => {
                     required
                     className="appearance-none rounded-md relative block w-full px-3 py-2 border border-charcoal-gray placeholder-charcoal-gray text-charcoal-gray focus:outline-none focus:ring-blinks-blue focus:border-blinks-blue focus:z-10 sm:text-sm"
                     placeholder="Enter your password"
+                    onChange={(e) =>
+                      handleFormChange("password", e.target.value)
+                    }
                   />
                 </div>
               </div>
@@ -178,6 +231,9 @@ const RegisterPopup = ({ onClose }) => {
                     required
                     className="appearance-none rounded-md relative block w-full px-3 py-2 border border-charcoal-gray placeholder-charcoal-gray text-charcoal-gray focus:outline-none focus:ring-blinks-blue focus:border-blinks-blue focus:z-10 sm:text-sm"
                     placeholder="Confirm your password"
+                    onChange={(e) =>
+                      handleFormChange("confirm_password", e.target.value)
+                    }
                   />
                 </div>
               </div>

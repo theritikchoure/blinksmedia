@@ -31,8 +31,31 @@ export const login = async (payload, remember_me) => {
   }
 };
 
+export const register = async (payload, remember_me) => {
+  try {
+
+    const response = await axios.post(`${API_URL}/register`, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    sessionStorage.setItem("authToken", response.data.token);
+
+    return response.data; // Return the user data
+  } catch (error) {
+    // Handle errors
+    if (error.response && error.response.status === 401) {
+      throw new Error("Invalid email or password");
+    } else {
+      throw error;
+    }
+  }
+};
+
 let authenticationService = {
   login,
+  register
 };
 
 export default authenticationService;

@@ -8,7 +8,7 @@ export const AuthenticationProvider = ({ children }) => {
   const [user, setUser] = useState(null); // State to store user data
   const [authToken, setAuthToken] = useState(null); // State to store auth token
   const [loading, setLoading] = useState(true); // State to handle loading state
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(localStorage.getItem("authToken") || sessionStorage.getItem("authToken"));
 
   useEffect(() => {
     // Check for token in localStorage or sessionStorage on initial load
@@ -18,8 +18,6 @@ export const AuthenticationProvider = ({ children }) => {
     if (token) {
       setAuthToken(token);
       setIsUserLoggedIn(true);
-      // Optionally, fetch user data using the token
-      // e.g., setUser(await fetchUserData(token));
     }
 
     setLoading(false);

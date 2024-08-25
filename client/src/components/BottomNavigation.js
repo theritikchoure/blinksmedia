@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthenticationContext";
 
@@ -59,58 +59,60 @@ const BottomNavigation = () => {
             </span>
           </Link>
         </div>
-        {isUserLoggedIn && (<div class="flex-1 group">
-          <button
-            href="#"
-            class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-blinks-primary border-b-2 border-transparent group-hover:border-blinks-primary"
-          >
-            <span class="block px-1 pt-1 pb-2">
-              <span class="inline-flex justify-center items-center">
-                <svg
-                  className="w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 12H18M12 6V18"
+        {isUserLoggedIn && (<Fragment>
+          <div class="flex-1 group">
+            <button
+              href="#"
+              class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-blinks-primary border-b-2 border-transparent group-hover:border-blinks-primary"
+            >
+              <span class="block px-1 pt-1 pb-2">
+                <span class="inline-flex justify-center items-center">
+                  <svg
+                    className="w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 12H18M12 6V18"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <span class="block text-xs pb-1">Blink</span>
+              </span>
+            </button>
+          </div>
+          <div class="flex-1 group">
+            <a
+              href="#"
+              class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-indigo-500 border-b-2 border-transparent group-hover:border-indigo-500"
+            >
+              <span class="block px-1 pt-1 pb-2">
+                <span class="inline-flex justify-center items-center">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+                    ></path>
+                  </svg>
+                </span>
+                <span class="block text-xs pb-1">Following</span>
               </span>
-              <span class="block text-xs pb-1">Blink</span>
-            </span>
-          </button>
-        </div>)}
-        <div class="flex-1 group">
-          <a
-            href="#"
-            class="flex items-end justify-center text-center mx-auto px-4 pt-2 w-full text-gray-400 group-hover:text-indigo-500 border-b-2 border-transparent group-hover:border-indigo-500"
-          >
-            <span class="block px-1 pt-1 pb-2">
-              <span class="inline-flex justify-center items-center">
-                <svg
-                  class="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="block text-xs pb-1">Following</span>
-            </span>
-          </a>
-        </div>
+            </a>
+          </div>
+        </Fragment>)}
       </div>
     </div>
   );
