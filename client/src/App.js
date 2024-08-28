@@ -12,7 +12,9 @@ import Home from "./landing_page";
 import LoginPage from "./pages/LoginPage.js";
 import RegisterPage from "./pages/RegistrationPage.js";
 import ForYouPage from "./pages/ForYouPage.js";
-import ExplorePage from "./pages/ExplorePage.js";
+// import ExplorePage from "./pages/ExplorePage.js";
+import VideosPage from "./pages/VideosPage.js";
+import VideoPage from "./pages/VideoPage.js";
 import AuthPopups from "./components/auth-popups/AuthPopups.js";
 import ProfilePage from "./pages/ProfilePage.js";
 import FollowingPage from "./pages/FollowingPage.js";
@@ -33,8 +35,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/for-you" element={<ForYouPage />} />
-          <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/video/:video_id" element={<ForYouPage />} />
+          {/* <Route path="/explore" element={<ExplorePage />} /> */}
+          <Route path="/explore" element={<VideosPage />} />
+          <Route path="/video/:video_id" element={<VideoPage />} />
           {/* <Route path="/profile" element={<ProfilePage />} />
           <Route path="/following" element={<FollowingPage />} /> */}
 
