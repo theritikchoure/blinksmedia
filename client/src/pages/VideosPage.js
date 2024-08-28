@@ -110,14 +110,14 @@ const ExplorePage = () => {
   return (
     <Layout>
       {/* Explore page */}
-      <div className="holder mx-auto w-full md:w-10/12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="holder mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {videoData.map((item, index) => (
           <VideoCard key={index} video={item} />
         ))}
         {/* Placeholder for loading indicator */}
       </div>
       {loading && (
-        <div className="holder mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="holder mx-auto grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {["", "", "", "", ""].map(() => (
             <ShimmerLoader />
           ))}
