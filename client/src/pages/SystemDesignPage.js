@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../layout/main2";
+import Layout from "../layout/main";
 
 const SystemDesignPage = () => {
   return (
@@ -7,9 +7,6 @@ const SystemDesignPage = () => {
       <div class="container mx-auto p-6">
         <h1 class="text-4xl font-bold mb-6 text-center">System Design</h1>
 
-        <h2 id="project-overview" class="text-3xl font-semibold mt-8 mb-4">
-          Project Overview
-        </h2>
         <p class="mb-4">
           The architecture simulates asynchronous video processing, offloading
           tasks to provide immediate user feedback while processing occurs in
@@ -40,7 +37,7 @@ const SystemDesignPage = () => {
         <h2 class="text-3xl font-semibold mt-8 mb-4">Architecture Details</h2>
         <div class="flex justify-center mb-6">
           <img
-            class="w-3/4 md:w-1/2 rounded-lg shadow-lg"
+            class="w-full md:w-3/4 shadow-2xl"
             src="https://github.com/theritikchoure/blinksmedia/raw/main/docs/architecture.png"
             alt="Architecture Diagram"
           />
@@ -48,12 +45,12 @@ const SystemDesignPage = () => {
 
         <p class="mb-4">
           Technologies used include <strong>Cloudinary Storage</strong> for
-          video storage, <strong>RabbitMQ</strong>
-          for task queuing, <strong>Node.js</strong> and <strong>FFmpeg</strong>{" "}
-          for backend processing, <strong>MongoDB</strong>{" "}
-          for database, and <strong>Redis</strong> for caching. The frontend
-          uses <strong>React.js</strong>, and all services are containerized
-          using <strong>Docker</strong>.
+          video storage, <strong>RabbitMQ</strong> for task queuing,{" "}
+          <strong>Node.js </strong> and <strong>FFmpeg</strong> for backend
+          processing, <strong>MongoDB</strong> for database,{" "}
+          <strong>Redis</strong> for caching, and <strong>Sharp</strong> for
+          image processing. The frontend uses <strong>React.js</strong>, and all
+          services are containerized using <strong>Docker</strong>.
         </p>
 
         <h2 class="text-2xl font-semibold mt-6 mb-2">1. Video Upload</h2>

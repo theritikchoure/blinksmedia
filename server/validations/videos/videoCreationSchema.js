@@ -21,16 +21,24 @@ const videoCreationSchema = Joi.object({
     "string.uri": "Video file path must be a valid URI",
   }),
   transcoding_preference: Joi.string().optional().allow(""),
-  thumbnail_url: Joi.string().uri().optional().messages({
+  thumbnail_url: Joi.string().uri().required().messages({
+    "any.required": "Thumbnail URL is required",
     "string.uri": "Thumbnail URL must be a valid URI",
   }),
-  video_url: Joi.string().uri().optional().messages({
+  video_url: Joi.string().uri().required().messages({
+    "any.required": "Video URL is required",
     "string.uri": "Video URL must be a valid URI",
   }),
   duration: Joi.number().integer().positive().optional().messages({
     "number.base": "Duration should be a positive number",
     "number.integer": "Duration should be an integer",
     "number.positive": "Duration should be greater than zero",
+  }),
+  video_public_id: Joi.string().required().messages({
+    "any.required": "Video public id is required",
+  }),
+  thumbnail_public_id: Joi.string().required().messages({
+    "any.required": "Thumbnail public id is required",
   }),
 });
 

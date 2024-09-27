@@ -7,14 +7,8 @@ import { AuthPopupsContext } from "../context/AuthPopupsContext";
 import { AuthContext } from "../context/AuthenticationContext";
 
 const NavBar = () => {
-  const { openLoginPopup, openRegisterPopup } = useContext(AuthPopupsContext);
+  const { openLoginPopup } = useContext(AuthPopupsContext);
   const { isUserLoggedIn, logout } = useContext(AuthContext);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <header
@@ -26,29 +20,26 @@ const NavBar = () => {
           to={`/`}
           className="flex items-center font-medium text-gray-900 title-font"
         >
-          <img src="/blinks.png" className="w-8 mr-2" />
+          <img src="/blinks.png" className="w-8 mr-2" alt="blinksmedia" />
           <BlinksSVGLogo className="w-auto h-5 text-gray-900 fill-current" />
         </Link>
 
         <nav className="hidden md:flex flex-wrap gap-5 items-center justify-center pl-24 text-base md:ml-auto md:mr-auto">
-          <Link to={`/explore`} className="font-medium hover:text-gray-900">
+          <Link to={`/`} className="font-medium hover:text-gray-900">
             App
           </Link>
-          {/* {isUserLoggedIn && (
-            <Fragment>
-              <Link to={`/following`} className="font-medium hover:text-gray-900">
-              Following
-            </Link>
-              <Link to={`/profile`} className="font-medium hover:text-gray-900">
-                Profile
-              </Link>
-            </Fragment>
-          )} */}
           <Link
             to={`/system-design`}
             className="font-medium hover:text-gray-900"
           >
             System Design
+          </Link>
+          <Link
+            to={`https://blinksmedia-production.up.railway.app/api-docs`}
+            className="font-medium hover:text-gray-900"
+            target="_blank"
+          >
+            API Swagger Documentation
           </Link>
         </nav>
         {!isUserLoggedIn && (
@@ -58,12 +49,6 @@ const NavBar = () => {
               className="mr-5 font-medium hover:text-gray-900"
             >
               Login
-            </button>
-            <button
-              onClick={openRegisterPopup}
-              className="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-blinks-primary rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
-            >
-              Sign Up
             </button>
           </div>
         )}

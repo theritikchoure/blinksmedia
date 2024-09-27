@@ -32,6 +32,18 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  video_public_id: {
+    type: String,
+    required: false,
+  },
+  thumbnail_public_id: {
+    type: String,
+    required: false,
+  },
+  userId: {
+    type: String,
+    required: true,
+  }
 }, {
   timestamps: true
 });

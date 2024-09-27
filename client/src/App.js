@@ -7,22 +7,15 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
-import LayoutMain from "./layout/main.js";
-import LayoutMain2 from "./layout/main2.js";
-import Home from "./landing_page";
+
 import LoginPage from "./pages/LoginPage.js";
-import RegisterPage from "./pages/RegistrationPage.js";
-import ForYouPage from "./pages/ForYouPage.js";
 // import ExplorePage from "./pages/ExplorePage.js";
 import VideosPage from "./pages/VideosPage.js";
 import VideoPage from "./pages/VideoPage.js";
 import AuthPopups from "./components/auth-popups/AuthPopups.js";
-import ProfilePage from "./pages/ProfilePage.js";
-import FollowingPage from "./pages/FollowingPage.js";
 import { AuthContext } from "./context/AuthenticationContext.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
 import UploadVideoPage from "./pages/uploadPage.js";
-import EditProfile from "./pages/EditProfile.js";
 import SystemDesignPage from "./pages/SystemDesignPage.js";
 
 const publicVapidKey =
@@ -74,30 +67,11 @@ function App() {
       <div className="app">
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<VideosPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          {/* <Route path="/for-you" element={<ForYouPage />} /> */}
-          {/* <Route path="/explore" element={<ExplorePage />} /> */}
-          <Route path="/explore" element={<VideosPage />} />
           <Route path="/video/:video_id" element={<VideoPage />} />
           <Route path="/system-design" element={<SystemDesignPage />} />
-          {/* <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/following" element={<FollowingPage />} /> */}
 
-          {/* Protected Routes */}
-          <Route
-            path="/profile"
-            element={isUserLoggedIn ? <ProfilePage /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/edit-profile"
-            element={isUserLoggedIn ? <EditProfile /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/following"
-            element={isUserLoggedIn ? <FollowingPage /> : <Navigate to="/" />}
-          />
           <Route
             path="/upload"
             element={isUserLoggedIn ? <UploadVideoPage /> : <Navigate to="/" />}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../layout/main2";
+import Layout from "../layout/main";
 import ReactPlayer from "react-player";
 import LoadingSpinner from "../components/LoadingSpinner";
 import axiosInstance from "../global/api";
@@ -59,6 +59,8 @@ const UploadVideoPage = () => {
 
     let videoFilePath;
     let thumbnailFilePath;
+    let thumbnail_public_id;
+    let video_public_id;
 
     // Check if videoFile is selected and upload it
     if (videoFile) {
@@ -66,6 +68,7 @@ const UploadVideoPage = () => {
         let res = await uploadVideo(videoFile);
         console.log("Video upload response:", res);
         videoFilePath = res.data.secure_url;
+        video_public_id = res.data.public_id;
       } catch (error) {
         console.error("Error uploading video:", error);
         alert("Error uploading video.");
@@ -89,7 +92,8 @@ const UploadVideoPage = () => {
           }
         );
 
-        thumbnailFilePath = response.data.url;
+        thumbnailFilePath = response.data.data.url;
+        thumbnail_public_id = response.data.data.public_id;
       } catch (error) {
         console.error("Error uploading thumbnail image:", error);
         alert("Error uploading thumbnail image.");
@@ -103,6 +107,8 @@ const UploadVideoPage = () => {
     videoFormData.append("description", formData.description);
     videoFormData.append("video_url", videoFilePath);
     videoFormData.append("thumbnail_url", thumbnailFilePath);
+    videoFormData.append("thumbnail_public_id", thumbnail_public_id);
+    videoFormData.append("video_public_id", video_public_id);
 
     setErrors({});
 

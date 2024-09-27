@@ -7,11 +7,19 @@ const morgan = require("morgan");
 const cors = require("cors");
 const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
 
 require("./config/db");
+
 const redisClient = require("./config/redis");
 const apiRoutes = require("./routes/index.route");
 const ResponseHandler = require("./utils/responseHandlers");
+const scheduleEverySecondJob = require("./cronjobs/cronjob");
+const passport = require('./config/passport.js');
+
+scheduleEverySecondJob();
+
 
 // Apply rate limiting
 const limiter = rateLimit({
@@ -60,11 +68,19 @@ app.use(
 
 // Body parser
 app.use(express.json());
+app.use(passport.initialize()); // Initialize Passport
 
 // Sample route
 app.get("/", (req, res) => {
   res.send("BlinksMedia API V7");
 });
+
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(YAML.load("api-docs/swagger.yml"))
+);
 
 app.use("/api/v1", apiRoutes);
 

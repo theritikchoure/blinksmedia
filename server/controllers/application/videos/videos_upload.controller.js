@@ -106,6 +106,7 @@ function uploadToCloudinary(fileBuffer, originalFilename, res) {
 
       // Respond with the result of the upload
       res.status(200).json({
+        success: true,
         message: "Video uploaded successfully",
         data: {
           public_id: result.public_id,

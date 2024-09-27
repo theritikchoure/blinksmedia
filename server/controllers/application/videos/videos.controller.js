@@ -20,20 +20,13 @@ const createVideoController = async (req, res, next) => {
       const validationErrors = error.details.map((detail) => detail.message);
       return res.status(400).json({
         message: "Validation error",
-        errors: validationErrors,
+        errors: validationErrors[0],
       });
     }
 
     // Destructure video data from request body
     const {
-      title,
-      status,
-      description,
-      video_filepath,
-      transcoding_preference,
-      thumbnail_url,
-      video_url,
-      duration,
+      title
     } = value;
 
     console.log("Video data received:", value);
@@ -43,13 +36,8 @@ const createVideoController = async (req, res, next) => {
 
     // Create a new video entry using the provided data
     const newVideo = await createNewVideo({
-      ...value, slug
+      ...value, userId:req.user.id, slug
     });
-
-    // If the video is live, create a Zoom meeting (or other live event functionality)
-    if (status === "live") {
-      await createLiveZoomMeeting({});
-    }
 
     res.status(201).json({
       message: "Video uploaded successfully",

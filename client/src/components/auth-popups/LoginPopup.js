@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import authenticationService from "../../services/authenticationService";
 import { AuthContext } from "../../context/AuthenticationContext";
-
 const LoginPopup = ({ onClose }) => {
 
    const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("demouser@blinksmedia.in");
+  const [password, setPassword] = useState("Demo@1234");
   const [remember_me, setRememberMe] = useState(false);
 
   const handlePopupClose = () => {
@@ -50,8 +51,11 @@ const LoginPopup = ({ onClose }) => {
       setPassword("");
       setRememberMe(false);
 
+      toast.success("Successfully logged in! Good to see you again.");
+
       // Close the popup (if desired)
       handlePopupClose();
+
     } catch (error) {
       console.error(error)
     }
@@ -104,13 +108,12 @@ const LoginPopup = ({ onClose }) => {
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-charcoal-gray">
-            Or{" "}
-            <a
-              href="/register"
-              className="font-medium text-blinks-primary hover:text-blinks-blue"
-            >
-              create an account
-            </a>
+            Or below credentials
+          </p>
+          <p className="mt-2 text-center text-sm text-charcoal-gray">
+            email: demouser@blinksmedia.in
+            <br />
+            password: Demo@1234
           </p>
         </div>
 
@@ -177,15 +180,6 @@ const LoginPopup = ({ onClose }) => {
                     Remember me
                   </label>
                 </div>
-
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-medium text-blinks-primary hover:text-blinks-blue"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
               </div>
 
               <div>
@@ -197,57 +191,6 @@ const LoginPopup = ({ onClose }) => {
                 </button>
               </div>
             </form>
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-light-gray text-charcoal-gray">
-                    Or continue with
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-3 gap-3">
-                <div>
-                  <a
-                    href="#"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-charcoal-gray bg-white hover:bg-gray-50"
-                  >
-                    <img
-                      className="h-5 w-5"
-                      src="https://www.svgrepo.com/show/512120/facebook-176.svg"
-                      alt="Facebook"
-                    />
-                  </a>
-                </div>
-                <div>
-                  <a
-                    href="#"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-charcoal-gray bg-white hover:bg-gray-50"
-                  >
-                    <img
-                      className="h-5 w-5"
-                      src="https://www.svgrepo.com/show/513008/twitter-154.svg"
-                      alt="Twitter"
-                    />
-                  </a>
-                </div>
-                <div>
-                  <a
-                    href="#"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-charcoal-gray bg-white hover:bg-gray-50"
-                  >
-                    <img
-                      className="h-6 w-6"
-                      src="https://www.svgrepo.com/show/506498/google.svg"
-                      alt="Google"
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

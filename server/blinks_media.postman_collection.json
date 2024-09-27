@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "d8ddcf04-5b37-437d-beae-8b7bdbc658e2",
+		"name": "BlinksMedia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37886312"
+	},
+	"item": [
+		{
+			"name": "application",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "auth",
+							"item": [
+								{
+									"name": "user-login",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"demouser@blinksmedia.in\",\r\n    \"password\": \"Demo@1234\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/application/users/auth/login",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"application",
+												"users",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "videos",
+					"item": [
+						{
+							"name": "upload-video-file",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "video",
+											"type": "file",
+											"src": "/C:/Users/ritvi/OneDrive/Desktop/Ritik/Placement/personal_projects/itny-urlshortner/itiny-url-shortener-demo.mp4"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/application/videos-upload",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"application",
+										"videos-upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create-video-metadata",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjZkZGE2YjRmNTg4NjVhMjUwMTIwZCIsImVtYWlsIjoiZGVtb3VzZXJAYmxpbmtzbWVkaWEuaW4iLCJpYXQiOjE3Mjc0NTU1MTgsImV4cCI6MTcyNzQ1OTExOH0.QJSfBso6Np-QmBgCVCAqLQXCX-Wxr-SzBLd7YKYcrQ8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Video test 5\",\r\n    \"status\": \"live\",\r\n    \"thumbnail_url\": \"https://res.cloudinary.com/ditzlnzmw/image/upload/v1727453319/thumbnails/pvcnxxmdnyje2gfemzzq.webp\",\r\n    \"thumbnail_public_id\": \"thumbnails/pvcnxxmdnyje2gfemzzq\",\r\n    \"video_url\": \"https://res.cloudinary.com/ditzlnzmw/video/upload/v1727404430/original-videos/itiny-url-shortener-demo.mp4\",\r\n    \"video_public_id\": \"original-videos/itiny-url-shortener-demo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/application/videos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"application",
+										"videos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "image-upload",
+					"item": [
+						{
+							"name": "upload-video-thumbnail",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "thumbnail",
+											"type": "file",
+											"src": "/C:/Users/ritvi/Downloads/youtube_thumbnail_maxres.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/application/images-upload",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"application",
+										"images-upload"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:5000/api/v1",
+			"type": "string"
+		}
+	]
+}

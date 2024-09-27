@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Layout from "../layout/main2";
-// import Card from "./card";
-import ShimmerLoader from "../components/ShimmerLoader";
+import Layout from "../layout/main";
 import VideoCard from "../components/VideoCard";
 
 const rawVideoData = [
@@ -125,22 +123,11 @@ const ExplorePage = () => {
 
   return (
     <Layout>
-      {/* Explore page */}
       <div className="holder p-2 py-5 mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {videoData.map((item, index) => (
           <VideoCard key={index} video={item} />
         ))}
-        {/* Placeholder for loading indicator */}
       </div>
-      {loading && (
-        <div className="holder mx-auto grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {["", "", "", "", ""].map(() => (
-            <ShimmerLoader />
-          ))}
-        </div>
-      )}
-      {/* Sentinel for detecting bottom of the page */}
-      {/* <div ref={observerRef} /> */}
     </Layout>
   );
 };

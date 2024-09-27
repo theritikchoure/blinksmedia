@@ -36,7 +36,10 @@ async function uploadVideoThumbnail(req, res) {
         res.status(200).json({
           success: true,
           message: "Thumbnail uploaded successfully!",
-          url: result.secure_url,
+          data: {
+            url: result.secure_url,
+            public_id: result.public_id,
+          },
         });
       }
     );
@@ -44,6 +47,6 @@ async function uploadVideoThumbnail(req, res) {
     stream.end(processedImageBuffer); // Pass the buffer to the upload stream
   } catch (error) {
     console.error("Error uploading to Cloudinary:", error);
-    res.status(500).send("Video upload failed");
+    res.status(500).send("Video thumbnail upload failed");
   }
 }
