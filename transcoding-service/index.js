@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json()); // Middleware to parse JSON
 
 // Connect to RabbitMQ and Database
-require("./config/db");
+require("./config/db.js");
 
 
 app.get('/', (req, res, next) => {
