@@ -136,7 +136,7 @@ const Layout = ({ children }) => {
       <NavBar />
       <div className="flex flex-1" id="main-page">
         {/* Main Content Area */}
-        <main className="flex-1 ml-0 mt-16 overflow-auto bg-light-gray mb-20 md:mb-0">
+        <main className="flex-1 ml-0 mt-16 overflow-auto bg-white mb-20 md:mb-0">
           <div className="mx-auto w-full md:w-10/12">{children}</div>
         </main>
       </div>

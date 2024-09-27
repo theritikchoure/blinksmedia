@@ -5,12 +5,12 @@ import HomePage from '../pages/HomePage';
 import NavBar from '../components/NavBar.js';
 import SideBar from '../components/SideBar.js';
 
-function App() {
+function App({children}) {
   return (
     <div>
       <NavBar />
+      {children}
       <SideBar />
-      <HomePage />
     </div>
   );
 }
