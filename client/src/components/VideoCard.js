@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 
 const VideoCard = ({ video }) => {
   return (
-    <div class="each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative">
-      <Link to={`/video/${video.video_id}`}>
+    <div class="each mb-2 m-2 border border-gray-300 bg-gray-100 relative">
+      <Link to={`/video/${video.slug}`}>
         <img
           class="w-full"
-          src="https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg"
+          // src="https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg"
+          src={video.thumbnail_url}
           alt=""
         />
       </Link>
@@ -27,7 +28,7 @@ const VideoCard = ({ video }) => {
       </div>
       <div class="desc p-4 text-gray-800">
         <Link
-          to={`/video/${video.video_id}`}
+          to={`/video/${video.slug}`}
           class="title font-bold block cursor-pointer hover:underline"
         >
           {video.title}

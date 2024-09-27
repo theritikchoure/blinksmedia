@@ -35,9 +35,9 @@ function Header() {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               {/* <!-- Play Button --> */}
               <path d="M8 5v14l11-7L8 5z" fill="#1F2937" />
@@ -47,7 +47,7 @@ function Header() {
                 cy="12"
                 r="10"
                 stroke="#1F2937"
-                stroke-width="2"
+                strokeWidth="2"
               />
             </svg>{" "}
             BlinksMedia

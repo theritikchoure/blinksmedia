@@ -18,11 +18,11 @@ const LoginPage = () => {
             >
               <g
                 id="svgGroup"
-                stroke-linecap="round"
+                strokeLinecap="round"
                 fill-rule="evenodd"
                 font-size="9pt"
                 stroke="#000"
-                stroke-width="0.25mm"
+                strokeWidth="0.25mm"
                 fill="#000"
                 style={{ stroke: "#000", strokeWidth: "0.25mm", fill: "#000" }}
               >

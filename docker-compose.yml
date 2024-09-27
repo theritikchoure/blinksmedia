@@ -1,0 +1,46 @@
+version: '3'
+services:
+  # backend-service:
+  #   build: ./server
+  #   container_name: blinksmedia-backend
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - MONGO_URL=mongodb://mongo:27017/blinksmedia
+  #     - RABBITMQ_URL=amqp://rabbitmq:5672
+  #   volumes:
+  #     - .:/app  # Mount local directory to /app in the container
+  #     - /app/node_modules  # Prevent overwriting node_modules
+  #   command: npm run dev  # Run Nodemon for development
+  #   depends_on:
+  #     - mongo
+  #     - rabbitmq
+
+  # transcoding-service:
+  #   build: ./transcoding-service
+  #   depends_on:
+  #     - rabbitmq
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  mongo_data:

@@ -6,65 +6,81 @@ import VideoCard from "../components/VideoCard";
 
 const rawVideoData = [
   {
-    video_id: "vid_001",
-    url: "https://assets.mixkit.co/videos/1173/1173-720.mp4",
-    // url: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
-    title: "A scenic view of mountains during sunset.",
+    _id: "66f439e43727c98cf473d200",
+    title: "Test video 5",
+    description: "Test video 5",
+    status: "published",
+    video_url:
+      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
+    slug: "test-video-5",
+    thumbnail_url:
+      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
   },
   {
-    video_id: "vid_002",
-    url: "https://assets.mixkit.co/videos/1164/1164-720.mp4",
-    title: "A serene beach with waves gently crashing.",
+    _id: "66f439e43727c98cf473d200",
+    title: "Test video 5",
+    description: "Test video 5",
+    status: "published",
+    video_url:
+      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
+    slug: "test-video-5",
+    thumbnail_url:
+      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
   },
   {
-    video_id: "vid_003",
-    url: "https://assets.mixkit.co/videos/32809/32809-720.mp4",
-    title: "A bustling cityscape with bright lights at night.",
+    _id: "66f439e43727c98cf473d200",
+    title: "Test video 5",
+    description: "Test video 5",
+    status: "published",
+    video_url:
+      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
+    slug: "test-video-5",
+    thumbnail_url:
+      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
   },
   {
-    video_id: "vid_004",
-    url: "https://assets.mixkit.co/videos/34375/34375-720.mp4",
-    title: "A close-up of a blooming flower in a garden.",
+    _id: "66f439e43727c98cf473d200",
+    title: "Test video 5",
+    description: "Test video 5",
+    status: "published",
+    video_url:
+      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
+    slug: "test-video-5",
+    thumbnail_url:
+      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
   },
   {
-    video_id: "vid_005",
-    url: "https://assets.mixkit.co/videos/34378/34378-720.mp4",
-    title: "A waterfall flowing through a lush forest.",
+    _id: "66f439e43727c98cf473d200",
+    title: "Test video 5",
+    description: "Test video 5",
+    status: "published",
+    video_url:
+      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
+    slug: "test-video-5",
+    thumbnail_url:
+      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
   },
   {
-    video_id: "vid_006",
-    url: "https://assets.mixkit.co/videos/34564/34564-720.mp4",
-    title: "A time-lapse of clouds moving over a mountain.",
+    _id: "66f439e43727c98cf473d200",
+    title: "Test video 5",
+    description: "Test video 5",
+    status: "published",
+    video_url:
+      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
+    slug: "test-video-5",
+    thumbnail_url:
+      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
   },
   {
-    video_id: "vid_007",
-    url: "https://assets.mixkit.co/videos/34562/34562-720.mp4",
-    title: "A vibrant sunset over a calm lake.",
-  },
-  {
-    video_id: "vid_008",
-    url: "https://assets.mixkit.co/videos/34563/34563-720.mp4",
-    title: "A drone view of a winding river through a valley.",
-  },
-  {
-    video_id: "vid_009",
-    url: "https://assets.mixkit.co/videos/34565/34565-720.mp4",
-    title: "A night sky filled with twinkling stars.",
-  },
-  {
-    video_id: "vid_010",
-    url: "https://assets.mixkit.co/videos/34560/34560-720.mp4",
-    title: "A city skyline during golden hour.",
-  },
-  {
-    video_id: "vid_011",
-    url: "https://assets.mixkit.co/videos/34560/34560-720.mp4",
-    title: "A city skyline during golden hour.",
-  },
-  {
-    video_id: "vid_012",
-    url: "https://assets.mixkit.co/videos/34560/34560-720.mp4",
-    title: "A city skyline during golden hour.",
+    _id: "66f439e43727c98cf473d200",
+    title: "Test video 5",
+    description: "Test video 5",
+    status: "published",
+    video_url:
+      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
+    slug: "test-video-5",
+    thumbnail_url:
+      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
   },
 ];
 
@@ -110,7 +126,7 @@ const ExplorePage = () => {
   return (
     <Layout>
       {/* Explore page */}
-      <div className="holder mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="holder p-2 py-5 mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {videoData.map((item, index) => (
           <VideoCard key={index} video={item} />
         ))}

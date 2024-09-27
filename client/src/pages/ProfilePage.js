@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Layout from "../layout/main2";
 import Card from "./card";
+import { Link } from "react-router-dom";
 
 const rawVideoData = [
   {
@@ -86,9 +87,9 @@ const ProfilePage = () => {
         </div>
 
         <div className="text-center mb-4">
-          <button className="bg-blinks-primary text-white py-2 px-4 rounded-lg hover:bg-blinks-blue">
+          <Link to={'/edit-profile'} className="bg-blinks-primary text-white py-2 px-4 rounded-lg hover:bg-blinks-blue">
             Edit profile
-          </button>
+          </Link>
         </div>
 
         <div className="text-center text-gray-600">

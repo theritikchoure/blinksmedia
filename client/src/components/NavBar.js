@@ -17,7 +17,10 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full h-16 bg-white text-gray-700 flex items-center justify-between px-4 fixed top-0 left-0 right-0 z-10 border-b-2">
+    <header
+      id="navbar"
+      className="w-full h-16 bg-white text-gray-700 flex items-center justify-between px-4 fixed top-0 left-0 right-0 z-10 border-b-2"
+    >
       <div className="container flex items-start justify-between p-4 mx-auto flex-row">
         <Link
           to={`/`}
@@ -28,20 +31,25 @@ const NavBar = () => {
         </Link>
 
         <nav className="hidden md:flex flex-wrap gap-5 items-center justify-center pl-24 text-base md:ml-auto md:mr-auto">
-          <Link to={`/for-you`} className="font-medium hover:text-gray-900">
-            For you
-          </Link>
           <Link to={`/explore`} className="font-medium hover:text-gray-900">
-            Explore
+            App
           </Link>
-          {isUserLoggedIn && (<Fragment>
-            <Link to={`/following`} className="font-medium hover:text-gray-900">
+          {/* {isUserLoggedIn && (
+            <Fragment>
+              <Link to={`/following`} className="font-medium hover:text-gray-900">
               Following
             </Link>
-            <Link to={`/profile`} className="font-medium hover:text-gray-900">
-              Profile
-            </Link>
-          </Fragment>)}
+              <Link to={`/profile`} className="font-medium hover:text-gray-900">
+                Profile
+              </Link>
+            </Fragment>
+          )} */}
+          <Link
+            to={`/system-design`}
+            className="font-medium hover:text-gray-900"
+          >
+            System Design
+          </Link>
         </nav>
         {!isUserLoggedIn && (
           <div className="items-center h-full">
