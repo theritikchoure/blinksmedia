@@ -13,7 +13,7 @@ In this project, I've implemented an asynchronous video processing architecture 
 
 ## Architecture Details
 
-![Blinks Architecture Details](./docs/architecture.drawio.png)
+![Blinks Architecture Details](./docs/architecture.png)
 
 ### 1. Video Upload
 - When a user uploads a video, the file is first uploaded to a cloud storage service. In this project, we are using `Cloudinary Storage` to store the uploaded videos, but any cloud storage service can be integrated.
