@@ -1,126 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import Layout from "../layout/main";
 import VideoCard from "../components/VideoCard";
-
-const rawVideoData = [
-  {
-    _id: "66f439e43727c98cf473d200",
-    title: "Test video 5",
-    description: "Test video 5",
-    status: "published",
-    video_url:
-      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
-    slug: "test-video-5",
-    thumbnail_url:
-      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
-  },
-  {
-    _id: "66f439e43727c98cf473d200",
-    title: "Test video 5",
-    description: "Test video 5",
-    status: "published",
-    video_url:
-      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
-    slug: "test-video-5",
-    thumbnail_url:
-      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
-  },
-  {
-    _id: "66f439e43727c98cf473d200",
-    title: "Test video 5",
-    description: "Test video 5",
-    status: "published",
-    video_url:
-      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
-    slug: "test-video-5",
-    thumbnail_url:
-      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
-  },
-  {
-    _id: "66f439e43727c98cf473d200",
-    title: "Test video 5",
-    description: "Test video 5",
-    status: "published",
-    video_url:
-      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
-    slug: "test-video-5",
-    thumbnail_url:
-      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
-  },
-  {
-    _id: "66f439e43727c98cf473d200",
-    title: "Test video 5",
-    description: "Test video 5",
-    status: "published",
-    video_url:
-      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
-    slug: "test-video-5",
-    thumbnail_url:
-      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
-  },
-  {
-    _id: "66f439e43727c98cf473d200",
-    title: "Test video 5",
-    description: "Test video 5",
-    status: "published",
-    video_url:
-      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
-    slug: "test-video-5",
-    thumbnail_url:
-      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
-  },
-  {
-    _id: "66f439e43727c98cf473d200",
-    title: "Test video 5",
-    description: "Test video 5",
-    status: "published",
-    video_url:
-      "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4",
-    slug: "test-video-5",
-    thumbnail_url:
-      "https://res.cloudinary.com/ditzlnzmw/image/upload/v1727281634/thumbnails/s2agckmlygn8xaymucjm.webp",
-  },
-];
+import axiosInstance from "../global/api";
 
 const ExplorePage = () => {
-  const [videoData, setVideoData] = useState(rawVideoData);
-  const [loading, setLoading] = useState(false);
-  const observerRef = useRef(null);
-
+  const [videoData, setVideoData] = useState([]);
+  
   useEffect(() => {
-    // Function to load more videos
-    const loadMoreVideos = () => {
-      setLoading(true);
-      // Simulate fetching more videos
-      setTimeout(() => {
-        setVideoData((prevData) => [...prevData, ...rawVideoData]);
-        setLoading(false);
-      }, 1000); // Simulate network delay
-    };
+    loadData();
+  }, [])
 
-    // Set up Intersection Observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting && !loading) {
-          loadMoreVideos();
-        }
-      },
-      { threshold: 1.0 }
-    );
+  const loadData = async () => {
+    try {
+      let response = await axiosInstance.get("/application/videos");
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+      setVideoData(response.data.data)
+
+      console.log(response.data.data);
+    } catch (error) {
+      
     }
-
-    // Cleanup observer on component unmount
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
-      }
-    };
-  }, [loading]);
-
+  }
+  
+  
   return (
     <Layout>
       <div className="holder p-2 py-5 mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

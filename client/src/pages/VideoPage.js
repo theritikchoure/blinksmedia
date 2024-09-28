@@ -1,43 +1,49 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom"; // Import useParams
 import Layout from "../layout/main";
 import ReactPlayer from "react-player";
 import Hls from "hls.js";
 import LoadingSpinner from "../components/LoadingSpinner";
+import axiosInstance from "../global/api";
 
 const SingleVideoPage = () => {
-
+  const { slug } = useParams(); // Get the video slug from the URL
   const playerRef = useRef(null);
-  
   const [loading, setLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-
-  let videoSrc =
-    "https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8"; // Your HLS stream
+  const [videoData, setVideoData] = useState(null); // State to store video data
+  const [relatedVideos, setRelatedVideos] = useState([]); // State to store video data
 
   useEffect(() => {
-    // Simulate data fetching or authentication check
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000); // Adjust the timeout as necessary
+    // Fetch video by slug
+    const fetchVideo = async () => {
+      try {
+        const response = await axiosInstance.get(`/application/videos/${slug}`);
+        console.log(response)
+        setVideoData(response.data.data.video); // Assuming your API returns the video data
+        setRelatedVideos(response.data.data.relatedVideos); // Assuming your API returns the video data
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching video:", error);
+        setLoading(false);
+      }
+    };
 
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
+    fetchVideo();
+  }, [slug]);
 
-   useEffect(() => {
-     if (Hls.isSupported() && playerRef.current) {
-       const hls = new Hls();
-       hls.loadSource(videoSrc);
-       hls.attachMedia(playerRef.current.getInternalPlayer());
+  useEffect(() => {
+    if (Hls.isSupported() && playerRef.current && videoData?.videoSrc) {
+      const hls = new Hls();
+      hls.loadSource(videoData.videoSrc);
+      hls.attachMedia(playerRef.current.getInternalPlayer());
 
-       // Cleanup when the component is unmounted
-       return () => {
-         hls.destroy();
-       };
-     } else {
-       videoSrc =
-         "https://res.cloudinary.com/ditzlnzmw/video/upload/v1727281632/original-videos/test.mp4";
-     }
-   }, [videoSrc]);
+      // Cleanup when the component is unmounted
+      return () => {
+        hls.destroy();
+      };
+    }
+  }, [videoData]);
 
   if (loading) {
     return (
@@ -49,19 +55,30 @@ const SingleVideoPage = () => {
     );
   }
 
+  if (!videoData) {
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-screen">
+          <p>Video not found</p>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="flex flex-col lg:flex-row gap-8 p-4 md:p-10">
         {/* Video Player and Details */}
         <div className="flex-1">
-          <div className="relative pt-[56.25%] bg-black rounded-lg overflow-hidden">
-            <ReactPlayer className="absolute top-0 left-0"
+          <div className="relative pt-[56.25%] bg-black rounded-lg overflow-hidden shadow-lg">
+            <ReactPlayer
+              className="absolute top-0 left-0 "
               ref={playerRef}
-              url={videoSrc}
+              url={videoData.video_url}
               width="100%"
               height="100%"
               controls
-              light="https://i.ytimg.com/vi/qew27BNl7io/maxresdefault.jpg"
+              light={videoData.thumbnail_url} // Assuming your API provides a thumbnail URL
               playing={isPlaying}
               onClickPreview={() => setIsPlaying(true)}
               playIcon={
@@ -84,12 +101,11 @@ const SingleVideoPage = () => {
             />
           </div>
           <div className="mt-4">
-            <h1 className="text-2xl font-bold text-gray-900">Video Title</h1>
+            <h1 className="text-2xl font-bold text-gray-900">
+              {videoData.title}
+            </h1>
             <div className="mt-4">
-              <p className="text-gray-800">
-                This is a description of the video. It can be multiple lines and
-                provide information about the video content.
-              </p>
+              <p className="text-gray-800">{videoData.description}</p>
             </div>
           </div>
         </div>
@@ -100,23 +116,27 @@ const SingleVideoPage = () => {
             Related Videos
           </h2>
           <ul>
-            {[...Array(5)].map((_, index) => (
+            {relatedVideos.map((video, index) => (
               <li
                 key={index}
                 className="flex mb-4 border-b border-gray-300 pb-2"
               >
-                <div className="w-24 bg-gray-200 flex-shrink-0 rounded-lg overflow-hidden">
-                  <ReactPlayer
-                    url="https://www.youtube.com/watch?v=Kr5iu_mSTSI"
-                    width="100%"
-                    height="100%"
-                    light
+                <div className="w-2/4 bg-gray-200 flex-shrink-0 rounded-lg overflow-hidden">
+                  {/* Replace ReactPlayer with an image tag for the thumbnail */}
+                  <img
+                    src={video.thumbnail_url} // Use the thumbnail URL here
+                    alt={`Thumbnail for Related Video ${index + 1}`}
+                    className="w-full h-full object-cover cursor-pointer"
+                    title={video.title}
                   />
                 </div>
                 <div className="ml-4 flex flex-col justify-center">
-                  <p className="text-gray-900 font-semibold">
-                    Related Video {index + 1}
-                  </p>
+                  <Link
+                    className="text-gray-900 font-semibold cursor-pointer"
+                    title={video.title}
+                  >
+                    {index + 1}. {video.title}
+                  </Link>
                 </div>
               </li>
             ))}

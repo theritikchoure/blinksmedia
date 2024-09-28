@@ -15,7 +15,7 @@ import VideoPage from "./pages/VideoPage.js";
 import AuthPopups from "./components/auth-popups/AuthPopups.js";
 import { AuthContext } from "./context/AuthenticationContext.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
-import UploadVideoPage from "./pages/uploadPage.js";
+import UploadVideoPage from "./pages/UploadPage.js";
 import SystemDesignPage from "./pages/SystemDesignPage.js";
 
 const publicVapidKey =
@@ -69,7 +69,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<VideosPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/video/:video_id" element={<VideoPage />} />
+          <Route path="/video/:slug" element={<VideoPage />} />
           <Route path="/system-design" element={<SystemDesignPage />} />
 
           <Route

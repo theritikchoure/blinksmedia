@@ -57,8 +57,6 @@ In this project, I've implemented an asynchronous video processing architecture 
 - **RabbitMQ:** For managing the task queue and ensuring asynchronous processing.
 - **Node.js:** As the backend runtime environment, including the worker process.
 - **FFmpeg:** For video processing tasks such as normalization and adaptive bitrate streaming.
-<br/>
-<br/>
 - **MongoDB**: Using MongoDB for a flexible and scalable database solution.
 - **Redis**: Implementing Redis for efficient caching and real-time data processing.
 - **React.js**: Leveraging React’s component-based architecture for a responsive and interactive user interface.

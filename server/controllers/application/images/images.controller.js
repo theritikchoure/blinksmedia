@@ -1,5 +1,6 @@
 const cloudinary = require("../../../config/cloudinary");
 const sharp = require("sharp"); // Import sharp
+const path = require('path')
 
 module.exports = {
   uploadVideoThumbnail,
@@ -15,9 +16,13 @@ async function uploadVideoThumbnail(req, res) {
     const width = 1280; // Change this to your desired width
     const height = Math.round((width / 16) * 9); // Calculate height for 16:9
 
+    // Define the path to your watermark image (must be accessible on your server)
+    const watermarkPath = path.join(__dirname, "watermark.png");
+
     // Resize the image and convert to WebP format using Sharp
     const processedImageBuffer = await sharp(buffer)
       .resize(width, height) // Resize to 1280x720 (16:9 aspect ratio)
+      .composite([{ input: watermarkPath, gravity: "southeast", opacity: 0.5 }]) // Add watermark with 50% opacity in bottom-right corner
       .toFormat("webp") // Convert to WebP
       .toBuffer(); // Get the processed buffer
 

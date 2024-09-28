@@ -7,12 +7,14 @@ import { uploadVideo } from "../controllers/video_upload.controller";
 
 const UploadVideoPage = () => {
   const [videoSrc, setVideoSrc] = useState(null);
-  const [description, setDescription] = useState("");
   const [videoFile, setVideoFile] = useState(null);
+
+  const [thumbnailSrc, setThumbnailSrc] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
 
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
+  const [isUploading, setIsUploading] = useState(false); // Track upload state
 
   const handleFileChange = (key, e) => {
     const selectedFile = e.target.files[0];
@@ -23,6 +25,8 @@ const UploadVideoPage = () => {
     }
 
     if (key === "thumbnail") {
+      const thumbnailURL = URL.createObjectURL(selectedFile);
+      setThumbnailSrc(thumbnailURL);
       setThumbnailFile(selectedFile);
     }
   };
@@ -37,12 +41,11 @@ const UploadVideoPage = () => {
   };
 
   const resetForm = () => {
-    console.log("hello");
-    // Reset form
     setVideoFile(null);
     setThumbnailFile(null);
     setVideoSrc(null);
     setFormData({});
+    setErrors({});
   };
 
   const handleSubmit = async (e) => {
@@ -62,16 +65,18 @@ const UploadVideoPage = () => {
     let thumbnail_public_id;
     let video_public_id;
 
+    setIsUploading(true); // Set uploading state
+
     // Check if videoFile is selected and upload it
     if (videoFile) {
       try {
         let res = await uploadVideo(videoFile);
-        console.log("Video upload response:", res);
         videoFilePath = res.data.secure_url;
         video_public_id = res.data.public_id;
       } catch (error) {
         console.error("Error uploading video:", error);
         alert("Error uploading video.");
+        setIsUploading(false);
         return;
       }
     }
@@ -97,6 +102,7 @@ const UploadVideoPage = () => {
       } catch (error) {
         console.error("Error uploading thumbnail image:", error);
         alert("Error uploading thumbnail image.");
+        setIsUploading(false);
         return;
       }
     }
@@ -109,6 +115,7 @@ const UploadVideoPage = () => {
     videoFormData.append("thumbnail_url", thumbnailFilePath);
     videoFormData.append("thumbnail_public_id", thumbnail_public_id);
     videoFormData.append("video_public_id", video_public_id);
+    videoFormData.append("status", "live");
 
     setErrors({});
 
@@ -125,7 +132,6 @@ const UploadVideoPage = () => {
       );
 
       if (response.status === 201) {
-        console.log("Video creation successful");
         alert("Video created successfully");
         resetForm();
       } else {
@@ -134,6 +140,8 @@ const UploadVideoPage = () => {
     } catch (error) {
       console.error("Error creating video:", error);
       alert("Error creating video.");
+    } finally {
+      setIsUploading(false); // Reset upload state
     }
   };
 
@@ -160,24 +168,35 @@ const UploadVideoPage = () => {
                 </label>
                 <div className="mt-3 flex justify-center rounded-lg border border-dashed border-gray-300 p-8">
                   <div className="text-center">
-                    <div className="mt-2 flex text-sm text-gray-600">
-                      <label
-                        htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2"
-                      >
-                        <span>Upload a video file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          className="sr-only"
-                          onChange={(e) => handleFileChange("video", e)}
-                          accept=".mp4"
-                        />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs text-gray-500">MP4 up to 10MB</p>
+                    {videoSrc ? (
+                      <div>
+                        <ReactPlayer url={videoSrc} controls width="100%" />
+                        <p className="text-xs text-green-500 mt-2">
+                          Video file selected
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="mt-2 flex text-sm text-gray-600">
+                          <label
+                            htmlFor="file-upload"
+                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 hover:text-indigo-500"
+                          >
+                            <span>Upload a video file</span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              type="file"
+                              className="sr-only"
+                              onChange={(e) => handleFileChange("video", e)}
+                              accept=".mp4"
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500">MP4 up to 10MB</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -205,11 +224,12 @@ const UploadVideoPage = () => {
                       id="first-name"
                       name="first-name"
                       type="text"
-                      className="p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="p-3 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       onChange={(e) =>
                         handleFormDataChange("title", e.target.value)
                       }
                       value={formData.title || ""}
+                      disabled={isUploading}
                     />
                   </div>
                   {errors.title && (
@@ -231,11 +251,12 @@ const UploadVideoPage = () => {
                       id="about"
                       name="about"
                       rows={4}
-                      className="p-3 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="p-3 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       onChange={(e) =>
                         handleFormDataChange("description", e.target.value)
                       }
                       value={formData.description || ""}
+                      disabled={isUploading}
                     />
                   </div>
                   {errors.description && (
@@ -249,54 +270,73 @@ const UploadVideoPage = () => {
                 </div>
               </div>
 
-              <div className="mt-10">
+              <div className="mt-6">
                 <label
-                  htmlFor="cover-photo"
+                  htmlFor="thumbnail-upload"
                   className="block font-medium text-gray-700"
                 >
-                  Thumbnail photo
+                  Thumbnail image
                 </label>
                 <div className="mt-3 flex justify-center rounded-lg border border-dashed border-gray-300 p-8">
                   <div className="text-center">
-                    <div className="mt-2 flex text-sm text-gray-600">
-                      <label
-                        htmlFor="cover-photo"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2"
-                      >
-                        <span>Upload a file</span>
-                        <input
-                          id="cover-photo"
-                          name="cover-photo"
-                          type="file"
-                          className="sr-only"
-                          onChange={(e) => handleFileChange("thumbnail", e)}
+                    {thumbnailSrc ? (
+                      <div>
+                        <img
+                          src={thumbnailSrc}
+                          alt="Thumbnail preview"
+                          className="max-h-40 rounded-md"
                         />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    <p className="text-xs text-gray-500">
-                      PNG, JPG, GIF up to 10MB
-                    </p>
+                        <p className="text-xs text-green-500 mt-2">
+                          Thumbnail selected
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="mt-2 flex text-sm text-gray-600">
+                          <label
+                            htmlFor="thumbnail-upload"
+                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 hover:text-indigo-500"
+                          >
+                            <span>Upload a thumbnail</span>
+                            <input
+                              id="thumbnail-upload"
+                              name="thumbnail-upload"
+                              type="file"
+                              className="sr-only"
+                              onChange={(e) => handleFileChange("thumbnail", e)}
+                              accept=".jpg,.jpeg,.png"
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500">
+                          PNG, JPG up to 5MB
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="button"
-              onClick={resetForm}
-              className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Save
-            </button>
+              <div className="mt-6">
+                <button
+                  type="submit"
+                  className={`flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm ${
+                    isUploading ? "cursor-not-allowed" : ""
+                  }`}
+                  disabled={isUploading}
+                >
+                  {isUploading ? (
+                    <span className="flex items-center">
+                      <LoadingSpinner className="h-5 w-5 mr-2" />
+                      Uploading...
+                    </span>
+                  ) : (
+                    "Upload video"
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
         </form>
       </div>

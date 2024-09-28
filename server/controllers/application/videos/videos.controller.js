@@ -25,9 +25,7 @@ const createVideoController = async (req, res, next) => {
     }
 
     // Destructure video data from request body
-    const {
-      title
-    } = value;
+    const { title } = value;
 
     console.log("Video data received:", value);
 
@@ -36,7 +34,9 @@ const createVideoController = async (req, res, next) => {
 
     // Create a new video entry using the provided data
     const newVideo = await createNewVideo({
-      ...value, userId:req.user.id, slug
+      ...value,
+      userId: req.user.id,
+      slug,
     });
 
     res.status(201).json({
@@ -45,7 +45,9 @@ const createVideoController = async (req, res, next) => {
     });
   } catch (error) {
     console.error("Error uploading video:", error);
-    res.status(500).json({ message: `Internal server error: ${error?.message || ''}` });
+    res
+      .status(500)
+      .json({ message: `Internal server error: ${error?.message || ""}` });
   }
 };
 
@@ -86,10 +88,45 @@ const getAllVideosController = async (req, res, next) => {
  * @returns {Promise<Array>} - Returns an array of video documents.
  */
 const fetchAllVideos = async () => {
-  return await Video.find({}).lean();
+  return await Video.find({}).sort({ createdAt: -1 }).lean();
+};
+
+const getVideoBySlugController = async (req, res, next) => {
+  try {
+    console.log("Hello");
+
+    const slug = req.params.slug;
+
+    // Fetch all videos from the database
+    const video = await Video.findOne({ slug }).lean();
+
+    if (!video) {
+      return res.status(404).json({ message: "Video not found" });
+    }
+
+    const relatedVideos = await Video.aggregate([
+      { $match: { _id: { $ne: video._id } } }, // Exclude current video
+      { $sample: { size: 5 } }, // Randomly sample 5 videos
+      {
+        $project: {
+          title: 1, // Include the `title` field
+          thumbnail_url: 1, // Include the `thumbnail_url` field
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      message: "Videos fetched successfully",
+      data: {video, relatedVideos},
+    });
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = {
   createVideoController,
   getAllVideosController,
+  getVideoBySlugController,
 };

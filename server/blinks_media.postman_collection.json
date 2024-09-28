@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "d8ddcf04-5b37-437d-beae-8b7bdbc658e2",
-		"name": "BlinksMedia",
+		"name": "blinks_media",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "37886312"
 	},
@@ -22,7 +22,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"email\": \"demouser@blinksmedia.in\",\r\n    \"password\": \"Demo@1234\"\r\n}",
+											"raw": "{\r\n    // \"email\": \"demouser@blinksmedia.in\",\r\n    \"email\": \"josekojed@mailinator.com\",\r\n    \"password\": \"Demo@1234\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -87,12 +87,52 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjZkZGE2YjRmNTg4NjVhMjUwMTIwZCIsImVtYWlsIjoiZGVtb3VzZXJAYmxpbmtzbWVkaWEuaW4iLCJpYXQiOjE3Mjc0NTU1MTgsImV4cCI6MTcyNzQ1OTExOH0.QJSfBso6Np-QmBgCVCAqLQXCX-Wxr-SzBLd7YKYcrQ8",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2FmNjk5YmQyNzhiMTFlZDNiNzIxZCIsImVtYWlsIjoiam9zZWtvamVkQG1haWxpbmF0b3IuY29tIiwiaWF0IjoxNzI3NDU4OTM1LCJleHAiOjE3Mjc0NjI1MzV9.MeeCKpRDax4GC2FtZOMhsG91l90-JZGINJmgsFdScM4",
 											"type": "string"
 										}
 									]
 								},
 								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Video test 5\",\r\n    \"status\": \"live\",\r\n    \"thumbnail_url\": \"https://res.cloudinary.com/ditzlnzmw/image/upload/v1727453213/thumbnails/pr210fya9sem9ihfoear.webp\",\r\n    \"thumbnail_public_id\": \"thumbnails/pvcnxxmdnyje2gfemzzq\",\r\n    \"video_url\": \"https://res.cloudinary.com/ditzlnzmw/video/upload/v1727404430/original-videos/itiny-url-shortener-demo.mp4\",\r\n    \"video_public_id\": \"original-videos/itiny-url-shortener-demo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/application/videos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"application",
+										"videos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-videos",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjZkZGE2YjRmNTg4NjVhMjUwMTIwZCIsImVtYWlsIjoiZGVtb3VzZXJAYmxpbmtzbWVkaWEuaW4iLCJpYXQiOjE3Mjc0NTU1MTgsImV4cCI6MTcyNzQ1OTExOH0.QJSfBso6Np-QmBgCVCAqLQXCX-Wxr-SzBLd7YKYcrQ8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -150,6 +190,116 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "videos",
+					"item": [
+						{
+							"name": "get-all-videos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/videos",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"videos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-video-by-id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/videos/:video_id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"videos",
+										":video_id"
+									],
+									"variable": [
+										{
+											"key": "video_id",
+											"value": "66f3ee9621060fbcc50e037e"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete-video-by-id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/videos/:video_id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"videos",
+										":video_id"
+									],
+									"variable": [
+										{
+											"key": "video_id",
+											"value": "66f3ee9621060fbcc50e037e"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Zjc5OGYwNzYxNDRhZjcxMDYzMGZjNSIsImVtYWlsIjoiYWRtaW5AYmxpbmtzbWVkaWEuaW4iLCJpYXQiOjE3Mjc1MDI1NzYsImV4cCI6MTcyNzUwNjE3Nn0.L3tVu3WyO2w3_9Wbwr7Y7aW3bw3-xNS_y4TAc_4WHYI",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}

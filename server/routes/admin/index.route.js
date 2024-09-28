@@ -1,12 +1,10 @@
-// const express = require("express");
-// const authRoutes = require("./authRoutes");
-// const userRoutes = require("./userRoutes");
-// const videoRoutes = require("./videoRoutes");
-// const commentRoutes = require("./commentRoutes");
+const express = require("express");
+const userRoutes = require("./users.route.js");
+const videoRoutes = require("./videos.route.js");
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.use("/admin", adminRoutes);
-// router.use("/application", applicationRoutes);
+router.use("/users", userRoutes);
+router.use("/videos", videoRoutes);
 
-// module.exports = router;
+module.exports = router;

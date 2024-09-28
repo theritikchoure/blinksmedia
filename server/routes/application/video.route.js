@@ -5,6 +5,7 @@ const rateLimit = require("express-rate-limit");
 const {
   createVideoController,
   getAllVideosController,
+  getVideoBySlugController,
 } = require("../../controllers/application/videos/videos.controller.js");
 
 const router = express.Router();
@@ -34,5 +35,6 @@ router.post(
 );
 
 router.get('/', getAllVideosController);
+router.get('/:slug', getVideoBySlugController);
 
 module.exports = router;

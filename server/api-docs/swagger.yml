@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-    title: BlinksMedia
+    title: blinks_media
     version: 1.0.0
 servers:
     - {url: /}
@@ -12,8 +12,12 @@ tags:
     - {name: 'application > user > auth'}
     - {name: 'application > videos'}
     - {name: 'application > image-upload'}
+    - {name: admin}
+    - {name: 'admin > videos'}
 paths:
-    /application/users/auth/login: {post: {tags: ['application > user > auth'], summary: user-login, requestBody: {content: {application/json: {schema: {type: object, example: {email: demouser@blinksmedia.in, password: Demo@1234}}}}}, responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
+    /application/users/auth/login: {post: {tags: ['application > user > auth'], summary: user-login, requestBody: {content: {application/json: {schema: {type: object, example: {email: josekojed@mailinator.com, password: Demo@1234}}}}}, responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
     /application/videos-upload: {post: {tags: ['application > videos'], summary: upload-video-file, requestBody: {content: {multipart/form-data: {schema: {type: object, properties: {video: {type: string, format: binary}}}}}}, responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
-    /application/videos: {post: {tags: ['application > videos'], summary: create-video-metadata, requestBody: {content: {application/json: {schema: {type: object, example: {title: 'Video test 5', status: live, thumbnail_url: 'https://res.cloudinary.com/ditzlnzmw/image/upload/v1727453319/thumbnails/pvcnxxmdnyje2gfemzzq.webp', thumbnail_public_id: thumbnails/pvcnxxmdnyje2gfemzzq, video_url: 'https://res.cloudinary.com/ditzlnzmw/video/upload/v1727404430/original-videos/itiny-url-shortener-demo.mp4', video_public_id: original-videos/itiny-url-shortener-demo}}}}}, security: [{bearerAuth: []}], responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
+    /application/videos: {post: {tags: ['application > videos'], summary: create-video-metadata, requestBody: {content: {application/json: {schema: {type: object, example: {title: 'Video test 5', status: live, thumbnail_url: 'https://res.cloudinary.com/ditzlnzmw/image/upload/v1727453213/thumbnails/pr210fya9sem9ihfoear.webp', thumbnail_public_id: thumbnails/pvcnxxmdnyje2gfemzzq, video_url: 'https://res.cloudinary.com/ditzlnzmw/video/upload/v1727404430/original-videos/itiny-url-shortener-demo.mp4', video_public_id: original-videos/itiny-url-shortener-demo}}}}}, security: [{bearerAuth: []}], responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}, get: {tags: ['application > videos'], summary: get-all-videos, security: [{bearerAuth: []}], responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
     /application/images-upload: {post: {tags: ['application > image-upload'], summary: upload-video-thumbnail, requestBody: {content: {multipart/form-data: {schema: {type: object, properties: {thumbnail: {type: string, format: binary}}}}}}, responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
+    /admin/videos: {get: {tags: ['admin > videos'], summary: get-all-videos, responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
+    '/admin/videos/{video_id}': {get: {tags: ['admin > videos'], summary: get-video-by-id, parameters: [{name: video_id, in: path, schema: {type: string}, required: true, example: 66f3ee9621060fbcc50e037e}], responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}, delete: {tags: ['admin > videos'], summary: delete-video-by-id, parameters: [{name: video_id, in: path, schema: {type: string}, required: true, example: 66f3ee9621060fbcc50e037e}], responses: {'200': {description: 'Successful response', content: {application/json: {}}}}}}
