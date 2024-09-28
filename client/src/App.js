@@ -15,7 +15,7 @@ import VideoPage from "./pages/VideoPage.js";
 import AuthPopups from "./components/auth-popups/AuthPopups.js";
 import { AuthContext } from "./context/AuthenticationContext.js";
 import NotFoundPage from "./pages/NotFoundPage.js";
-import UploadVideoPage from "./pages/UploadPage.js";
+import UploadVideoPage from "./pages/uploadPage.js";
 import SystemDesignPage from "./pages/SystemDesignPage.js";
 
 const publicVapidKey =
