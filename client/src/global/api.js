@@ -4,7 +4,7 @@ import axios from "axios";
 
 // Create an instance of axios
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api/v1", // Replace with your backend API base URL
+  baseURL: "https://blinksmedia-production.up.railway.app/api/v1", // Replace with your backend API base URL
   timeout: 20000, // Timeout after 20 seconds
   headers: {
     "Content-Type": "application/json",
